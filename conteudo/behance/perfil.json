@@ -1,0 +1,38 @@
+{
+  "displayName": "Eric Mac",
+  "firstName": "Eric",
+  "username": "ericmacintyre1",
+  "url": "https://www.behance.net/ericmacintyre1",
+  "occupation": "",
+  "company": "Eric Macintyre",
+  "location": "Brazil",
+  "workExperiences": [
+    {
+      "position": "Designer de produtos",
+      "organization": "XP Inc. ",
+      "location": "São Paulo, Brazil"
+    }
+  ],
+  "bannerImageUrl": "https://mir-s3-cdn-cf.behance.net/b9ea17dfad9705c7bdc0ed14d67a233b/f110a19b-091d-447e-aaf2-e0b25d39cd93_rwc_117x0x2966x411x3201.png?h=f0f2611115cb7064f028b8dcbf0c4861",
+  "stats": {
+    "views": 100,
+    "appreciations": 14,
+    "followers": 15,
+    "following": 47
+  },
+  "availabilityInfo": {
+    "isAvailableFullTime": true,
+    "isAvailableFreelance": true,
+    "availabilityTimeline": "within_next_few_weeks",
+    "compensationMin": null,
+    "currency": "USD",
+    "hiringTimeline": {
+      "key": "now"
+    },
+    "isOpenToRelocation": true,
+    "isLookingForRemote": true,
+    "budgetMin": 10000,
+    "enforceMinBudget": false
+  },
+  "createdOn": 1588872284
+}

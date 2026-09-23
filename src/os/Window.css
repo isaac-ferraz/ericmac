@@ -1,0 +1,317 @@
+.window {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--r-window);
+  background: var(--surface);
+  box-shadow: var(--shadow-window-idle);
+  outline: none;
+  transform-origin: 50% 50%;
+  transition: box-shadow 0.25s var(--ease-out);
+  isolation: isolate;
+}
+
+.window.is-active {
+  box-shadow: var(--shadow-window);
+}
+
+.window.is-minimized {
+  pointer-events: none;
+}
+
+.window.is-maximized {
+  border-radius: 12px;
+}
+
+.window.is-dragging {
+  cursor: grabbing;
+}
+
+.window__body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+/* ---------- semáforo ---------- */
+.traffic {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 5;
+  display: flex;
+  gap: 8px;
+}
+
+.traffic__btn {
+  display: grid;
+  place-items: center;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--hairline-strong);
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.12);
+  transition: background-color 0.15s;
+}
+
+/* cria uma área de toque maior sem mudar o desenho */
+.traffic__btn::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+}
+
+.traffic__btn {
+  position: relative;
+}
+
+.traffic__btn svg {
+  width: 9px;
+  height: 9px;
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.6);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+
+.window.is-active .traffic__btn--close,
+.traffic:hover .traffic__btn--close {
+  background: var(--tl-close);
+}
+
+.window.is-active .traffic__btn--min,
+.traffic:hover .traffic__btn--min {
+  background: var(--tl-min);
+}
+
+.window.is-active .traffic__btn--max,
+.traffic:hover .traffic__btn--max {
+  background: var(--tl-max);
+}
+
+.traffic:hover svg,
+.traffic__btn:focus-visible svg {
+  opacity: 1;
+}
+
+/* ---------- alças de redimensionar ---------- */
+.rz {
+  position: absolute;
+  z-index: 6;
+}
+
+.rz--n,
+.rz--s {
+  left: 10px;
+  right: 10px;
+  height: 8px;
+  cursor: ns-resize;
+}
+
+.rz--n {
+  top: -4px;
+}
+
+.rz--s {
+  bottom: -4px;
+}
+
+.rz--e,
+.rz--w {
+  top: 10px;
+  bottom: 10px;
+  width: 8px;
+  cursor: ew-resize;
+}
+
+.rz--e {
+  right: -4px;
+}
+
+.rz--w {
+  left: -4px;
+}
+
+.rz--ne,
+.rz--nw,
+.rz--se,
+.rz--sw {
+  width: 16px;
+  height: 16px;
+}
+
+.rz--ne {
+  top: -5px;
+  right: -5px;
+  cursor: nesw-resize;
+}
+
+.rz--sw {
+  bottom: -5px;
+  left: -5px;
+  cursor: nesw-resize;
+}
+
+.rz--nw {
+  top: -5px;
+  left: -5px;
+  cursor: nwse-resize;
+}
+
+.rz--se {
+  bottom: -5px;
+  right: -5px;
+  cursor: nwse-resize;
+}
+
+/* ---------- peças comuns às janelas ---------- */
+
+/* barra de ferramentas unificada (título + ações), área de arrastar */
+.toolbar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 52px;
+  padding: 0 14px 0 92px;
+  border-bottom: 1px solid var(--hairline);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.toolbar__title {
+  font-size: var(--fs-13);
+  font-weight: 650;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toolbar__sub {
+  font-size: var(--fs-11);
+  color: var(--text-3);
+}
+
+.toolbar__spacer {
+  flex: 1;
+}
+
+.tool-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 28px;
+  min-width: 28px;
+  padding: 0 8px;
+  border-radius: 8px;
+  color: var(--text-2);
+  font-size: var(--fs-12);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.tool-btn:hover {
+  background: var(--surface-3);
+  color: var(--text);
+}
+
+.tool-btn[aria-pressed='true'] {
+  background: var(--surface-3);
+  color: var(--text);
+}
+
+.tool-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tool-btn:disabled {
+  opacity: 0.35;
+}
+
+/* barra lateral translúcida (Finder, Notas, Mensagens) */
+.sidebar {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  width: 208px;
+  padding: 56px 10px 12px;
+  background: var(--sidebar);
+  backdrop-filter: blur(30px) saturate(1.6);
+  -webkit-backdrop-filter: blur(30px) saturate(1.6);
+  border-right: 1px solid var(--hairline);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.sidebar__label {
+  padding: 12px 8px 4px;
+  font-size: var(--fs-11);
+  font-weight: 600;
+  color: var(--text-3);
+}
+
+.sidebar__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 28px;
+  padding: 4px 8px;
+  border-radius: 7px;
+  font-size: var(--fs-13);
+  text-align: left;
+  color: var(--text);
+}
+
+.sidebar__item:hover {
+  background: var(--hairline);
+}
+
+.sidebar__item[aria-current='true'] {
+  background: var(--select);
+  font-weight: 550;
+}
+
+.sidebar__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex: none;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar__count {
+  margin-left: auto;
+  font-size: var(--fs-11);
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.statusbar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 26px;
+  padding: 0 12px;
+  border-top: 1px solid var(--hairline);
+  font-size: var(--fs-11);
+  color: var(--text-3);
+}

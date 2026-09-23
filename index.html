@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Eric Mac — Designer de Produtos</title>
+    <meta
+      name="description"
+      content="Portfólio de Eric Mac, Designer de Produtos na XP Inc. Identidade visual e rebranding: Kozok, Tecinsoles e Raízes — num Mac que você pode abrir."
+    />
+    <meta name="author" content="Eric Mac" />
+    <meta name="theme-color" content="#1d1d1b" />
+    <meta name="color-scheme" content="light dark" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content="Eric Mac — Designer de Produtos" />
+    <meta property="og:description" content="Identidade visual e rebranding. Kozok, Tecinsoles e Raízes." />
+    <meta property="og:image" content="og-image.png" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+    <!-- tema antes da primeira pintura, para não piscar -->
+    <script>
+      ;(function () {
+        var pref = 'auto'
+        try {
+          var s = JSON.parse(localStorage.getItem('ericmac.settings') || '{}')
+          pref = (s.state && s.state.theme) || 'auto'
+        } catch (e) {}
+        var dark = pref === 'dark' || (pref === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <main style="max-width: 640px; margin: 48px auto; padding: 0 20px; font-family: system-ui, sans-serif; line-height: 1.5">
+        <h1>Eric Mac</h1>
+        <p>Designer de Produtos na XP Inc. Identidade visual e rebranding.</p>
+        <h2>Projetos</h2>
+        <ul>
+          <li><a href="https://www.behance.net/gallery/243082507/KOZOK">Kozok — rebranding</a></li>
+          <li><a href="https://www.behance.net/gallery/220323505/TECINSOLES-redesign">Tecinsoles — redesign</a></li>
+          <li><a href="https://www.behance.net/gallery/208384195/Raizes-sabor-sem-gluten">Raízes — sabor sem glúten</a></li>
+        </ul>
+        <h2>Contato</h2>
+        <ul>
+          <li><a href="mailto:eric@gmail.com">eric@gmail.com</a></li>
+          <li><a href="https://wa.me/5512997489200">WhatsApp +55 12 99748-9200</a></li>
+          <li><a href="https://www.linkedin.com/in/eric-macintyre-61863b259/">LinkedIn</a></li>
+          <li><a href="https://www.behance.net/ericmacintyre1">Behance</a></li>
+        </ul>
+      </main>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

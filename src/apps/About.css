@@ -1,0 +1,140 @@
+.about {
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 44px 36px 28px;
+  text-align: center;
+  background:
+    radial-gradient(90% 50% at 50% 0%, color-mix(in srgb, var(--violet-ui) 16%, transparent), transparent 70%),
+    var(--surface);
+  scrollbar-width: thin;
+}
+
+/* o retrato ocupa o círculo da forma do banner: o Eric é o ponto da marca */
+.about__portrait {
+  position: relative;
+  flex: none;
+  width: min(300px, 80%);
+  aspect-ratio: 212 / 112;
+}
+
+.about__ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--violet-ui);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+}
+
+.about__ring path {
+  vector-effect: non-scaling-stroke;
+}
+
+.about__portrait img {
+  position: absolute;
+  left: calc((164 / 212) * 100%);
+  top: 50%;
+  width: calc((56 / 212) * 100%);
+  height: auto;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 3px var(--surface), 0 10px 24px -8px rgba(0, 0, 0, 0.5);
+}
+
+.about__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: 440px;
+}
+
+.about__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-40);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.about__name span {
+  color: var(--violet-ui);
+}
+
+.about__intro {
+  font-size: var(--fs-15);
+  line-height: 1.55;
+  color: var(--text-2);
+  text-wrap: pretty;
+}
+
+.about__specs {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  padding: 14px 0;
+  border-block: 1px solid var(--hairline);
+  font-size: var(--fs-12);
+}
+
+.about__specs div {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 12px;
+  text-align: left;
+}
+
+.about__specs dt {
+  text-align: right;
+  font-weight: 600;
+}
+
+.about__specs dd {
+  color: var(--text-2);
+}
+
+.about__specs dd span {
+  color: var(--text-3);
+}
+
+.about__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.about--mobile {
+  padding: 16px 20px 40px;
+  background: var(--surface);
+}
+
+.about--mobile .about__specs div {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.about--mobile .about__specs dt {
+  text-align: left;
+  font-size: var(--fs-11);
+  color: var(--text-3);
+}
+
+.about--mobile .about__specs {
+  gap: 10px;
+  font-size: var(--fs-15);
+}
+
+.about--mobile .btn {
+  min-height: 44px;
+  padding: 8px 20px;
+  font-size: var(--fs-15);
+}

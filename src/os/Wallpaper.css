@@ -1,0 +1,63 @@
+.wallpaper {
+  --mx: 60vw;
+  --my: 40vh;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 70% at 50% 110%, color-mix(in srgb, var(--wall-line) 22%, transparent), transparent 60%),
+    var(--desk);
+  transition: background-color 0.4s var(--ease-out);
+}
+
+.wallpaper__drift {
+  position: absolute;
+  inset: calc(var(--tile-h) * -1) 0 0 calc(var(--tile-w) * -1);
+  animation: wall-drift 140s linear infinite;
+  will-change: transform;
+}
+
+.wallpaper__lines {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--wall-line);
+  stroke-width: 1px;
+  opacity: calc(var(--wall-alpha) * 0.42);
+}
+
+.wallpaper__lit {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: radial-gradient(260px 260px at var(--mx) var(--my), #000 0%, rgba(0, 0, 0, 0.35) 45%, transparent 100%);
+  mask-image: radial-gradient(260px 260px at var(--mx) var(--my), #000 0%, rgba(0, 0, 0, 0.35) 45%, transparent 100%);
+}
+
+.wallpaper__lines--lit {
+  stroke: color-mix(in srgb, var(--wall-line) 70%, #fff);
+  stroke-width: 1.4px;
+  opacity: 1;
+}
+
+:root:not([data-theme='dark']) .wallpaper__lines--lit {
+  stroke: var(--wall-line);
+}
+
+.wallpaper__vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(140% 100% at 50% 40%, transparent 55%, color-mix(in srgb, var(--desk-2) 85%, transparent));
+}
+
+@keyframes wall-drift {
+  to {
+    transform: translate(calc(var(--tile-w) * 1), calc(var(--tile-h) * 1));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wallpaper__drift {
+    animation: none;
+  }
+}
