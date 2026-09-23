@@ -1,5 +1,7 @@
 import { useEffect, useId, useRef } from 'react'
 import { peanutContours, PEANUT_W, PEANUT_H } from '../brand/shapes'
+import { useFocusedAccent } from './windows'
+import { useSettings, useResolvedTheme } from './settings'
 import './Wallpaper.css'
 
 // A forma do banner, repetida em linhas alternadas (uma virada), como no Behance.
@@ -42,6 +44,11 @@ function Layer({ className }: { className: string }) {
 
 export function Wallpaper({ interactive = true }: { interactive?: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
+  const theme = useResolvedTheme()
+  const follow = useSettings((s) => s.followAccent)
+  const accent = useFocusedAccent(theme)
+  // a cor é trocada só aqui (e não no :root), para a transição não restilizar a página toda
+  const line = follow && accent ? accent : undefined
 
   // A luz segue o cursor e acende os contornos por baixo dele.
   useEffect(() => {
@@ -74,16 +81,12 @@ export function Wallpaper({ interactive = true }: { interactive?: boolean }) {
     <div
       ref={ref}
       className="wallpaper"
-      style={{ ['--tile-w' as string]: `${TILE_W}px`, ['--tile-h' as string]: `${TILE_H}px` }}
+      style={{ ['--wall-line' as string]: line }}
     >
-      <div className="wallpaper__drift">
-        <Layer className="wallpaper__lines" />
-      </div>
+      <Layer className="wallpaper__lines" />
       {interactive && (
         <div className="wallpaper__lit">
-          <div className="wallpaper__drift">
-            <Layer className="wallpaper__lines wallpaper__lines--lit" />
-          </div>
+          <Layer className="wallpaper__lines wallpaper__lines--lit" />
         </div>
       )}
       <div className="wallpaper__vignette" />

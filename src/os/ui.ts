@@ -16,20 +16,11 @@ type UI = {
 
 let nextId = 1
 
-// o boot só aparece na primeira visita da sessão e nunca com movimento reduzido
-function shouldBoot() {
-  try {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false
-    return sessionStorage.getItem('ericmac.booted') !== '1'
-  } catch {
-    return true
-  }
-}
-
 export const useUI = create<UI>()((set, get) => ({
   spotlight: false,
   controlCenter: false,
-  booting: shouldBoot(),
+  // o boot inicial é a tela do index.html; este estado só liga no "Reiniciar…"
+  booting: false,
   toasts: [],
   setSpotlight: (spotlight) => set({ spotlight, controlCenter: false }),
   setControlCenter: (controlCenter) => set({ controlCenter, spotlight: false }),

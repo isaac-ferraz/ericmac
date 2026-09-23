@@ -115,10 +115,3 @@
   --wall-alpha: 0.9;
   color-scheme: dark;
 }
-
-/* troca de projeto em foco: a cor desliza em vez de pular */
-:root {
-  transition:
-    --accent 0.7s var(--ease-out),
-    --wall-line 1.1s var(--ease-out);
-}

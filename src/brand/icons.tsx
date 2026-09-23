@@ -135,9 +135,11 @@ function Art({ name }: { name: IconName }) {
     case 'behance':
       return (
         <Squircle from="#2a6bff" to="#0040e0">
-          <text x="50" y="64" textAnchor="middle" fontFamily="Inter Variable, Inter, sans-serif" fontWeight="800" fontSize="40" fill="#fff" letterSpacing="-2">
-            Bē
+          {/* "Be" + traço desenhado: o caractere "ē" puxaria o subconjunto latin-ext da fonte (83 KB) */}
+          <text x="50" y="66" textAnchor="middle" fontFamily="Inter Variable, Inter, sans-serif" fontWeight="800" fontSize="40" fill="#fff" letterSpacing="-2">
+            Be
           </text>
+          <rect x="53" y="30" width="15" height="4.6" rx="1.2" fill="#fff" />
         </Squircle>
       )
     case 'linkedin':

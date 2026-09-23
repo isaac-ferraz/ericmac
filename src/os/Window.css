@@ -17,6 +17,12 @@
   box-shadow: var(--shadow-window);
 }
 
+/* a janela recebe foco ao abrir (leitor de tela); quem mostra o foco é o estado ativo
+   (sombra e semáforo coloridos), não um contorno */
+.window:focus-visible {
+  outline: none;
+}
+
 .window.is-minimized {
   pointer-events: none;
 }

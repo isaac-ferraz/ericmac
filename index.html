@@ -36,8 +36,24 @@
         document.documentElement.dataset.theme = dark ? 'dark' : 'light'
       })()
     </script>
+    <!-- tela de boot: pintada antes do JavaScript, o app remove quando estiver pronto -->
+    <style>
+      #boot{position:fixed;inset:0;z-index:20000;display:grid;place-content:center;justify-items:center;gap:56px;background:#0b0b0a;color:#f5f5f7;transition:opacity .45s cubic-bezier(.22,1,.36,1)}
+      #boot svg{width:120px;height:auto;fill:none;stroke:currentColor;stroke-width:8;animation:boot-in .6s cubic-bezier(.22,1,.36,1) both}
+      #boot i{display:block;width:180px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden}
+      #boot i::after{content:'';display:block;height:100%;border-radius:inherit;background:#f5f5f7;transform-origin:left;transform:scaleX(var(--p,0));transition:transform .4s ease-out;animation:boot-bar 2.4s cubic-bezier(.2,.6,.3,1) both}
+      #boot.is-done{opacity:0;pointer-events:none}
+      #boot.is-done i::after{animation:none;transform:scaleX(1)}
+      @keyframes boot-in{from{opacity:0;transform:scale(.92)}}
+      @keyframes boot-bar{from{transform:scaleX(0)}to{transform:scaleX(.85)}}
+      @media (prefers-reduced-motion:reduce){#boot svg,#boot i::after{animation:none}#boot{transition:none}}
+    </style>
   </head>
   <body>
+    <div id="boot" role="progressbar" aria-label="Iniciando o Mac do Eric">
+      <svg viewBox="-4 -4 208 108" aria-hidden="true"><path d="M50 10L104 10C120 10 126 41 134 41C141 41 142 20 158 20A30 30 0 0 1 158 80C142 80 141 59 134 59C126 59 120 90 104 90L50 90A40 40 0 0 1 50 10Z"/><path d="M50 22L95.2 22A28 28 0 0 1 95.2 78L50 78A28 28 0 0 1 50 22ZM140 50a18 18 0 1 0 36 0a18 18 0 1 0 -36 0Z"/><path d="M50 34L96.4 34A16 16 0 0 1 96.4 66L50 66A16 16 0 0 1 50 34ZM152 50a6 6 0 1 0 12 0a6 6 0 1 0 -12 0Z"/></svg>
+      <i></i>
+    </div>
     <div id="root"></div>
     <noscript>
       <main style="max-width: 640px; margin: 48px auto; padding: 0 20px; font-family: system-ui, sans-serif; line-height: 1.5">

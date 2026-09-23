@@ -1,15 +1,18 @@
-import { useCallback, useEffect, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import { AnimatePresence } from 'motion/react'
-import { Desktop } from './os/Desktop'
-import { Phone } from './mobile/Phone'
+import { prefetchApps } from './apps/registry'
 import { Boot } from './os/Boot'
+import { hideBootScreen } from './os/bootScreen'
 import { useUI } from './os/ui'
-import { useWindows, topWindow } from './os/windows'
-import { useSettings, useResolvedTheme, useMediaQuery, useReducedMotion } from './os/settings'
+import { useWindows, useFocusedAccent } from './os/windows'
+import { useResolvedTheme, useMediaQuery } from './os/settings'
 import { useHashRouting, parseHash } from './os/routing'
 import { openApp } from './os/actions'
-import { projectBySlug } from './data/projects'
 import { useT, useLang } from './i18n'
+
+// desktop e celular são pacotes separados: cada aparelho baixa só o seu
+const Desktop = lazy(() => import('./os/Desktop').then((m) => ({ default: m.Desktop })))
+const Phone = lazy(() => import('./mobile/Phone').then((m) => ({ default: m.Phone })))
 
 const MOBILE_QUERY = '(max-width: 899px), (pointer: coarse) and (max-height: 540px)'
 
@@ -18,7 +21,6 @@ export default function App() {
   const lang = useLang()
   const theme = useResolvedTheme()
   const mobile = useMediaQuery(MOBILE_QUERY)
-  const reduced = useReducedMotion()
   const booting = useUI((s) => s.booting)
   const setBooting = useUI((s) => s.setBooting)
   const [ready, setReady] = useState(false)
@@ -33,39 +35,26 @@ export default function App() {
     document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en'
   }, [lang])
 
-  // a cor do projeto em foco vira a cor de destaque e a cor das linhas do fundo
-  const follow = useSettings((s) => s.followAccent)
-  const focusedSlug = useWindows((s) => {
-    const top = topWindow(s.wins)
-    return top?.app === 'case' ? top.slug : undefined
-  })
+  // a cor do projeto em foco vira a cor de destaque (o papel de parede cuida da própria cor)
+  const accent = useFocusedAccent(theme)
   useEffect(() => {
     const root = document.documentElement.style
-    const p = focusedSlug ? projectBySlug[focusedSlug] : undefined
-    const colour = p ? (theme === 'dark' ? p.glow : p.accent) : null
-    if (colour) root.setProperty('--accent', colour)
+    if (accent) root.setProperty('--accent', accent)
     else root.removeProperty('--accent')
-    if (colour && follow) root.setProperty('--wall-line', colour)
-    else root.removeProperty('--wall-line')
-  }, [focusedSlug, follow, theme])
+  }, [accent])
 
-  const finishBoot = useCallback(() => {
-    try {
-      sessionStorage.setItem('ericmac.booted', '1')
-    } catch {
-      /* segue sem lembrar */
-    }
-    setBooting(false)
-  }, [setBooting])
+  const finishBoot = useCallback(() => setBooting(false), [setBooting])
 
-  // depois do boot, no Mac, a janela de projetos já abre (a não ser que o endereço peça outra)
-  useEffect(() => {
-    if (booting || ready) return
+  // tira a tela de boot do index.html quando o shell já está na tela; no Mac, a janela
+  // de projetos abre enquanto ela some (a não ser que o endereço peça outra janela)
+  const onShellReady = useCallback(() => {
+    if (ready) return
     setReady(true)
-    if (!mobile && !parseHash(location.hash) && !Object.keys(useWindows.getState().wins).length) {
-      window.setTimeout(() => openApp('projects'), reduced ? 0 : 350)
-    }
-  }, [booting, ready, mobile, reduced])
+    hideBootScreen().then(() => {
+      prefetchApps()
+      if (!mobile && !parseHash(location.hash) && !Object.keys(useWindows.getState().wins).length) openApp('projects')
+    })
+  }, [ready, mobile])
 
   useHashRouting(!booting)
 
@@ -96,8 +85,19 @@ export default function App() {
         {t('skip')}
         </a>
       </nav>
-      {mobile ? <Phone /> : <Desktop />}
+      <Suspense fallback={null}>
+        {mobile ? <Phone /> : <Desktop />}
+        <ShellReady onReady={onShellReady} />
+      </Suspense>
       <AnimatePresence>{booting && <Boot onDone={finishBoot} />}</AnimatePresence>
     </>
   )
+}
+
+/** Monta junto com o shell (mesmo Suspense), então só roda quando o shell carregou. */
+function ShellReady({ onReady }: { onReady: () => void }) {
+  useEffect(() => {
+    onReady()
+  }, [onReady])
+  return null
 }

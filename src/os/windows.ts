@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { Project } from '../data/projects'
+import { projectBySlug, type Project } from '../data/projects'
 
 export type AppId = 'projects' | 'case' | 'about' | 'contact' | 'messages' | 'notes' | 'trash'
 
@@ -212,4 +212,15 @@ export function topWindow(wins: Record<string, Win>): Win | undefined {
   let top: Win | undefined
   for (const w of Object.values(wins)) if (!w.minimized && (!top || w.z > top.z)) top = w
   return top
+}
+
+/** Cor da marca do case em primeiro plano (versão clara no tema escuro), ou nada. */
+export function useFocusedAccent(theme: 'light' | 'dark'): string | undefined {
+  const slug = useWindows((s) => {
+    const top = topWindow(s.wins)
+    return top?.app === 'case' ? top.slug : undefined
+  })
+  if (!slug) return undefined
+  const p = projectBySlug[slug]
+  return theme === 'dark' ? p.glow : p.accent
 }

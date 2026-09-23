@@ -103,5 +103,32 @@ Rodado contra o build de produção (`pnpm preview`), com Playwright + axe-core:
   acento ("raizes" acha Raízes), troca de idioma, menus pelo teclado, lightbox com
   setas e Esc, comparador pelo teclado, endereço acompanhando a janela: tudo passa,
   sem erros de JavaScript.
-- **Movimento** — `prefers-reduced-motion` pula o boot e desliga molas e a deriva do fundo.
-- O boot aparece só na primeira visita da sessão, e clicar ou teclar pula.
+- **Movimento** — `prefers-reduced-motion` pula o boot e desliga as molas.
+
+## Desempenho
+
+Medido com rede 4G lenta (1,6 Mbps, 150 ms) e CPU 4× mais lenta:
+
+| | antes | depois |
+| --- | --- | --- |
+| primeira coisa na tela | ~2,5 s (tela branca até o JS rodar) | **~0,6 s** (tela de boot em HTML puro) |
+| boot | 1,75 s fixos depois do JS | some quando o app está pronto (mín. 0,6 s na 1ª visita da sessão) |
+| fluidez parado | 29 FPS, quadro de até 67 ms | **60 FPS**, quadro de até 17 ms |
+| fonte extra | +83 KB (latin-ext por causa do "ē") | 0 |
+
+O que mudou e por quê:
+
+- **Boot no `index.html`.** O símbolo e a barra são HTML/CSS inline, pintados antes de
+  qualquer JavaScript; `src/os/bootScreen.ts` só os retira quando o shell renderizou e
+  as fontes chegaram.
+- **JavaScript dividido.** Mac e iPhone são pacotes separados; Case, Sobre, Contato,
+  Mensagens, Notas e Lixeira carregam sob demanda e são pré-buscados quando o
+  navegador fica ocioso (`prefetchApps` em `src/apps/registry.tsx`).
+- **Fundo parado.** A deriva contínua das linhas obrigava todo vidro com
+  `backdrop-filter` (barra de menus, Dock, widgets, barras laterais) a refazer o
+  desfoque a cada quadro. A luz sob o cursor continua.
+- **Troca de cor local.** A transição da cor do projeto em foco acontece só no papel
+  de parede; antes ela animava uma variável herdada no `:root` e restilizava a página
+  inteira a cada quadro.
+- **Fontes.** O "ē" do ícone do Behance virou "Be" + um traço desenhado, e Inter e
+  Unbounded (latin) são pré-carregadas pelo plugin `preloadFonts` em `vite.config.ts`.

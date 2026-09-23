@@ -1,14 +1,34 @@
+import { lazy, Suspense } from 'react'
 import type { AppId, Win } from '../os/windows'
 import type { StringKey } from '../i18n/strings'
 import type { IconName } from '../brand/icons'
 import { projectBySlug } from '../data/projects'
 import { Projects } from './Projects'
-import { CaseViewer } from './CaseViewer'
-import { About } from './About'
-import { Contact } from './Contact'
-import { Messages } from './Messages'
-import { Notes } from './Notes'
-import { Trash } from './Trash'
+
+// Projetos abre junto com a mesa; os outros apps só carregam quando alguém abre
+// (e são buscados de antemão quando o navegador fica ocioso — ver prefetchApps).
+const loaders = {
+  case: () => import('./CaseViewer'),
+  about: () => import('./About'),
+  contact: () => import('./Contact'),
+  messages: () => import('./Messages'),
+  notes: () => import('./Notes'),
+  trash: () => import('./Trash'),
+}
+
+const CaseViewer = lazy(() => loaders.case().then((m) => ({ default: m.CaseViewer })))
+const About = lazy(() => loaders.about().then((m) => ({ default: m.About })))
+const Contact = lazy(() => loaders.contact().then((m) => ({ default: m.Contact })))
+const Messages = lazy(() => loaders.messages().then((m) => ({ default: m.Messages })))
+const Notes = lazy(() => loaders.notes().then((m) => ({ default: m.Notes })))
+const Trash = lazy(() => loaders.trash().then((m) => ({ default: m.Trash })))
+
+export function prefetchApps() {
+  const run = () => Object.values(loaders).forEach((load) => void load())
+  // Safari não tem requestIdleCallback
+  if (typeof window.requestIdleCallback === 'function') window.requestIdleCallback(run, { timeout: 4000 })
+  else setTimeout(run, 2500)
+}
 
 export const appMeta: Record<AppId, { title: StringKey; icon: IconName }> = {
   projects: { title: 'app.projects', icon: 'projects' },
@@ -26,6 +46,14 @@ export function windowTitle(win: Pick<Win, 'app' | 'slug'>, t: (k: StringKey) =>
 }
 
 export function AppContent({ win }: { win: Pick<Win, 'app' | 'slug'> }) {
+  return (
+    <Suspense fallback={<div className="app-loading" aria-busy="true" />}>
+      <AppSwitch win={win} />
+    </Suspense>
+  )
+}
+
+function AppSwitch({ win }: { win: Pick<Win, 'app' | 'slug'> }) {
   switch (win.app) {
     case 'projects':
       return <Projects />
