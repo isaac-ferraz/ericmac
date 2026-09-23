@@ -54,7 +54,9 @@ pnpm build      # checa tipos e gera dist/
 pnpm preview
 ```
 
-`dist/` é estático (caminhos relativos): serve em Vercel, Netlify ou GitHub Pages.
+**No ar:** <https://isaac-ferraz.github.io/ericmac/> — cada push na `main` publica de novo
+(`.github/workflows/deploy.yml`). `dist/` usa caminhos relativos, então também serve
+em Vercel ou Netlify sem mudança.
 
 ## Estrutura
 
@@ -88,7 +90,6 @@ Tudo o que não veio pronto do Behance está marcado no código com `draft` ou `
 - [ ] **Frase do "Sobre"** — "pega marcas que explicam demais…" (`about.intro` em `src/i18n/strings.ts`).
 - [ ] **Traduções para o inglês** de todos os textos dos cases.
 - [ ] **Instagram** — o link aponta para `@oericmac`, tirado da capa do Kozok.
-- [ ] Depois do deploy, trocar `og-image.png` em `index.html` pela URL absoluta (redes sociais não leem caminho relativo).
 
 ## Qualidade verificada
 
