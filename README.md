@@ -90,7 +90,6 @@ Behance ou no LinkedIn; `pair` põe dois retratos lado a lado na galeria.
 
 Tudo o que não veio pronto do Behance está marcado no código com `draft` ou `TODO`:
 
-- [ ] **E-mail** — `eric@gmail.com` foi o que recebemos; confirmar (`src/data/profile.ts`, `index.html`).
 - [ ] **Texto do Tecinsoles** — o Behance só tem imagens; o texto foi escrito a partir das peças (`src/data/projects.ts`, `draft: true`).
 - [ ] **Healthy Creatives** — as três primeiras seções são o texto do post dele (em inglês; o PT é tradução, em primeira pessoa como no post). A seção "o sistema." e a paleta (roxo `#3B1E8C`, azul-tinta `#23279A`) saíram das fotos (`draft: true`).
 - [ ] **Fotos do Healthy Creatives em maior resolução** — sem login o LinkedIn só entrega 800px para 7 delas (ver `conteudo/linkedin/projeto.md`); se o Eric mandar os arquivos originais, é só substituir em `conteudo/linkedin/imagens/` com o mesmo nome.

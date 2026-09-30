@@ -22,8 +22,7 @@ export const profile = {
   },
 
   contact: {
-    // TODO(Isaac): confirmar se este é o e-mail real do Eric.
-    email: 'eric@gmail.com',
+    email: 'oericmac@gmail.com',
     phoneDisplay: '+55 12 99748-9200',
     phoneHref: 'tel:+5512997489200',
     whatsapp: 'https://wa.me/5512997489200',

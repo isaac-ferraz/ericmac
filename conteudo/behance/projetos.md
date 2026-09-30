@@ -22,7 +22,7 @@ Imagens originais (resolução de upload, pasta `source/` do CDN) em `imagens/`.
 ### Contato (passado pelo Isaac, não está no Behance)
 
 - Telefone/WhatsApp: +55 12 99748-9200
-- E-mail: eric@gmail.com — **confirmar**
+- E-mail: oericmac@gmail.com (confirmado pelo Isaac em 30/09/2026)
 - LinkedIn: <https://www.linkedin.com/in/eric-macintyre-61863b259/>
 
 ---
