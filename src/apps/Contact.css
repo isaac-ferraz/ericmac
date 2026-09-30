@@ -16,20 +16,20 @@
 .mail__compose {
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
+  padding: 0 1.25rem;
 }
 
 .mail__field {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 42px;
+  gap: 0.625rem;
+  min-height: 2.625rem;
   border-bottom: 1px solid var(--hairline);
 }
 
 .mail__label {
   flex: none;
-  width: 64px;
+  width: 4rem;
   color: var(--text-3);
 }
 
@@ -38,14 +38,14 @@
   min-width: 0;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
   overflow: hidden;
 }
 
 .mail__pill {
   flex: none;
-  padding: 2px 9px;
-  border-radius: 999px;
+  padding: 0.125rem 0.5625rem;
+  border-radius: 100vmax;
   background: var(--select);
   color: var(--select-strong);
   font-weight: 600;
@@ -65,7 +65,7 @@
 .mail__field input {
   flex: 1;
   min-width: 0;
-  height: 40px;
+  height: 2.5rem;
   border: 0;
   background: none;
   font-size: var(--fs-13);
@@ -76,8 +76,8 @@
 .mail__body textarea {
   display: block;
   width: 100%;
-  min-height: 120px;
-  padding: 16px 0;
+  min-height: 7.5rem;
+  padding: 1rem 0;
   border: 0;
   resize: none;
   background: none;
@@ -93,13 +93,13 @@
 
 .mail__channels {
   margin-top: auto;
-  padding: 14px 20px 18px;
+  padding: 0.875rem 1.25rem 1.125rem;
   background: var(--surface-2);
   border-top: 1px solid var(--hairline);
 }
 
 .mail__channels-label {
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
   font-size: var(--fs-11);
   font-weight: 600;
   color: var(--text-3);
@@ -107,16 +107,16 @@
 
 .mail__channels ul {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 4px;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: 0.25rem;
 }
 
 .mail__channels a {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 6px 8px;
-  border-radius: 10px;
+  gap: 0.625rem;
+  padding: 0.375rem 0.5rem;
+  border-radius: 0.625rem;
   text-decoration: none;
   transition: background-color 0.15s;
 }
@@ -148,26 +148,26 @@
 }
 
 .mail--mobile .mail__label {
-  width: 56px;
+  width: 3.5rem;
 }
 
 .mail--mobile .mail__field input,
 .mail--mobile .mail__field {
   font-size: var(--fs-15);
-  min-height: 48px;
+  min-height: 3rem;
 }
 
 .mail--mobile .mail__submit {
   align-self: stretch;
-  min-height: 48px;
-  margin: 4px 0 20px;
+  min-height: 3rem;
+  margin: 0.25rem 0 1.25rem;
   font-size: var(--fs-15);
 }
 
 .mail--mobile .mail__channels {
-  padding: 18px 16px 32px;
+  padding: 1.125rem 1rem 2rem;
 }
 
 .mail--mobile .mail__channels a {
-  min-height: 52px;
+  min-height: 3.25rem;
 }

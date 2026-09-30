@@ -28,7 +28,7 @@
 }
 
 .window.is-maximized {
-  border-radius: 12px;
+  border-radius: 0.75rem;
 }
 
 .window.is-dragging {
@@ -48,18 +48,18 @@
 /* ---------- semáforo ---------- */
 .traffic {
   position: absolute;
-  top: 18px;
-  left: 18px;
+  top: 1.125rem;
+  left: 1.125rem;
   z-index: 5;
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .traffic__btn {
   display: grid;
   place-items: center;
-  width: 13px;
-  height: 13px;
+  width: 0.8125rem;
+  height: 0.8125rem;
   border-radius: 50%;
   background: var(--hairline-strong);
   box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.12);
@@ -70,7 +70,7 @@
 .traffic__btn::after {
   content: '';
   position: absolute;
-  inset: -4px;
+  inset: -0.25rem;
 }
 
 .traffic__btn {
@@ -78,8 +78,8 @@
 }
 
 .traffic__btn svg {
-  width: 9px;
-  height: 9px;
+  width: 0.5625rem;
+  height: 0.5625rem;
   fill: none;
   stroke: rgba(0, 0, 0, 0.6);
   stroke-width: 1.4;
@@ -116,65 +116,65 @@
 
 .rz--n,
 .rz--s {
-  left: 10px;
-  right: 10px;
-  height: 8px;
+  left: 0.625rem;
+  right: 0.625rem;
+  height: 0.5rem;
   cursor: ns-resize;
 }
 
 .rz--n {
-  top: -4px;
+  top: -0.25rem;
 }
 
 .rz--s {
-  bottom: -4px;
+  bottom: -0.25rem;
 }
 
 .rz--e,
 .rz--w {
-  top: 10px;
-  bottom: 10px;
-  width: 8px;
+  top: 0.625rem;
+  bottom: 0.625rem;
+  width: 0.5rem;
   cursor: ew-resize;
 }
 
 .rz--e {
-  right: -4px;
+  right: -0.25rem;
 }
 
 .rz--w {
-  left: -4px;
+  left: -0.25rem;
 }
 
 .rz--ne,
 .rz--nw,
 .rz--se,
 .rz--sw {
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
 }
 
 .rz--ne {
-  top: -5px;
-  right: -5px;
+  top: -0.3125rem;
+  right: -0.3125rem;
   cursor: nesw-resize;
 }
 
 .rz--sw {
-  bottom: -5px;
-  left: -5px;
+  bottom: -0.3125rem;
+  left: -0.3125rem;
   cursor: nesw-resize;
 }
 
 .rz--nw {
-  top: -5px;
-  left: -5px;
+  top: -0.3125rem;
+  left: -0.3125rem;
   cursor: nwse-resize;
 }
 
 .rz--se {
-  bottom: -5px;
-  right: -5px;
+  bottom: -0.3125rem;
+  right: -0.3125rem;
   cursor: nwse-resize;
 }
 
@@ -185,9 +185,9 @@
   flex: none;
   display: flex;
   align-items: center;
-  gap: 10px;
-  height: 52px;
-  padding: 0 14px 0 92px;
+  gap: 0.625rem;
+  height: 3.25rem;
+  padding: 0 0.875rem 0 5.75rem;
   border-bottom: 1px solid var(--hairline);
   user-select: none;
   -webkit-user-select: none;
@@ -214,11 +214,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  height: 28px;
-  min-width: 28px;
-  padding: 0 8px;
-  border-radius: 8px;
+  gap: 0.375rem;
+  height: 1.75rem;
+  min-width: 1.75rem;
+  padding: 0 0.5rem;
+  border-radius: 0.5rem;
   color: var(--text-2);
   font-size: var(--fs-12);
   font-weight: 500;
@@ -237,8 +237,8 @@
 }
 
 .tool-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.6;
@@ -255,18 +255,19 @@
   flex: none;
   display: flex;
   flex-direction: column;
-  width: 208px;
-  padding: 56px 10px 12px;
-  background: var(--sidebar);
-  backdrop-filter: blur(30px) saturate(1.6);
-  -webkit-backdrop-filter: blur(30px) saturate(1.6);
+  width: 13rem;
+  padding: 3.5rem 0.625rem 0.75rem;
+  /* o que fica atrás da barra é o fundo opaco da própria janela, então o vidro
+     aqui seria desfoque sobre uma cor lisa: pinta-se direto a cor que ele daria,
+     sem recalcular desfoque a cada quadro de arrastar ou rolar */
+  background: linear-gradient(var(--sidebar) 0 0), var(--surface);
   border-right: 1px solid var(--hairline);
   user-select: none;
   -webkit-user-select: none;
 }
 
 .sidebar__label {
-  padding: 12px 8px 4px;
+  padding: 0.75rem 0.5rem 0.25rem;
   font-size: var(--fs-11);
   font-weight: 600;
   color: var(--text-3);
@@ -275,11 +276,11 @@
 .sidebar__item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
   width: 100%;
-  min-height: 28px;
-  padding: 4px 8px;
-  border-radius: 7px;
+  min-height: 1.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.4375rem;
   font-size: var(--fs-13);
   text-align: left;
   color: var(--text);
@@ -295,8 +296,8 @@
 }
 
 .sidebar__dot {
-  width: 10px;
-  height: 10px;
+  width: 0.625rem;
+  height: 0.625rem;
   border-radius: 50%;
   flex: none;
   box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.2);
@@ -314,9 +315,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  height: 26px;
-  padding: 0 12px;
+  gap: 0.5rem;
+  height: 1.625rem;
+  padding: 0 0.75rem;
   border-top: 1px solid var(--hairline);
   font-size: var(--fs-11);
   color: var(--text-3);

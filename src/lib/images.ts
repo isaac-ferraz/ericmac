@@ -1,6 +1,7 @@
-// Todas as imagens dos projetos vêm do snapshot do Behance (conteudo/behance).
-// O vite-imagetools gera AVIF e WebP em três larguras a partir dos originais,
-// sem ampliar os que já são menores que a maior largura.
+// As imagens dos projetos vêm dos snapshots do Behance (conteudo/behance) e do
+// post do LinkedIn (conteudo/linkedin). O vite-imagetools gera AVIF e WebP em
+// três larguras a partir dos originais, sem ampliar os que já são menores que a
+// maior largura.
 
 export type Picture = {
   sources: Record<string, string>
@@ -8,7 +9,7 @@ export type Picture = {
 }
 
 const originals = import.meta.glob<Picture>(
-  '../../conteudo/behance/{imagens,derivados}/*.png',
+  ['../../conteudo/behance/{imagens,derivados}/*.png', '../../conteudo/linkedin/imagens/*.jpg'],
   {
     query: '?w=480;960;1350&format=avif;webp&withoutEnlargement&as=picture',
     import: 'default',
@@ -17,7 +18,7 @@ const originals = import.meta.glob<Picture>(
 )
 
 const thumbs = import.meta.glob<Picture>(
-  '../../conteudo/behance/{imagens,derivados}/*.png',
+  ['../../conteudo/behance/{imagens,derivados}/*.png', '../../conteudo/linkedin/imagens/*.jpg'],
   {
     query: '?w=160;320&format=avif;webp&withoutEnlargement&as=picture',
     import: 'default',
@@ -28,7 +29,7 @@ const thumbs = import.meta.glob<Picture>(
 function byName(map: Record<string, Picture>) {
   const out: Record<string, Picture> = {}
   for (const [path, pic] of Object.entries(map)) {
-    const name = path.split('/').pop()!.replace(/\.png$/, '')
+    const name = path.split('/').pop()!.replace(/\.(png|jpg)$/, '')
     out[name] = pic
   }
   return out

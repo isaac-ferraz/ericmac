@@ -22,7 +22,9 @@ export function CaseViewer({ slug }: { slug: Project['slug'] }) {
   const scroller = useRef<HTMLDivElement>(null)
   const [lightbox, setLightbox] = useState<number | null>(null)
 
-  const viewable: ProjectImage[] = [p.cover, p.before, p.after, ...p.gallery]
+  const viewable: ProjectImage[] = [p.cover, ...(p.compare ? [p.compare.before, p.compare.after] : []), ...p.gallery]
+  const galleryStart = viewable.length - p.gallery.length
+  const linkLabel = t(p.link.kind === 'linkedin' ? 'case.linkedin' : 'case.behance')
 
   useEffect(() => {
     scroller.current?.scrollTo({ top: 0 })
@@ -59,8 +61,8 @@ export function CaseViewer({ slug }: { slug: Project['slug'] }) {
             <p className="toolbar__sub">{p.tagline[lang]}</p>
           </div>
           <span className="toolbar__spacer" />
-          <a className="tool-btn" href={p.behance} target="_blank" rel="noopener noreferrer">
-            {t('case.behance')}
+          <a className="tool-btn" href={p.link.url} target="_blank" rel="noopener noreferrer">
+            {linkLabel}
             <svg viewBox="0 0 16 16"><path d="M6 3.5h6.5V10M12.5 3.5L4 12" /></svg>
           </a>
         </header>
@@ -97,7 +99,7 @@ export function CaseViewer({ slug }: { slug: Project['slug'] }) {
                 ))}
               </div>
             </section>
-            {i === p.compareAfterSection && <Compare key={p.slug} project={p} />}
+            {p.compare && i === p.compare.afterSection && <Compare key={p.slug} compare={p.compare} />}
           </Fragment>
         ))}
 
@@ -113,16 +115,22 @@ export function CaseViewer({ slug }: { slug: Project['slug'] }) {
             {t('case.applications')}
           </h2>
           {p.gallery.map((img, i) => (
-            <button key={img.key} type="button" className="case__shot" onClick={() => setLightbox(3 + i)} aria-label={`${t('case.zoom')}: ${img.alt[lang]}`}>
-              <Pic k={img.key} alt={img.alt[lang]} sizes="(max-width: 900px) 100vw, 1000px" />
+            <button
+              key={img.key}
+              type="button"
+              className={`case__shot${img.pair ? ' case__shot--pair' : ''}`}
+              onClick={() => setLightbox(galleryStart + i)}
+              aria-label={`${t('case.zoom')}: ${img.alt[lang]}`}
+            >
+              <Pic k={img.key} alt={img.alt[lang]} sizes={img.pair ? '(max-width: 900px) 50vw, 500px' : '(max-width: 900px) 100vw, 1000px'} />
             </button>
           ))}
         </section>
 
         <footer className="case__foot">
           {mobile && (
-            <a className="btn case__behance" href={p.behance} target="_blank" rel="noopener noreferrer">
-              {t('case.behance')} ↗
+            <a className="btn case__behance" href={p.link.url} target="_blank" rel="noopener noreferrer">
+              {linkLabel} ↗
             </a>
           )}
           <button type="button" className="case__next" onClick={() => go(next.slug)} style={{ ['--next-accent' as string]: next.accent }}>
@@ -145,7 +153,7 @@ export function CaseViewer({ slug }: { slug: Project['slug'] }) {
 
 /* ---------------------------------------------------------------- antes/depois */
 
-function Compare({ project }: { project: Project }) {
+function Compare({ compare }: { compare: NonNullable<Project['compare']> }) {
   const t = useT()
   const lang = useLang()
   const reduced = useReducedMotion()
@@ -170,7 +178,7 @@ function Compare({ project }: { project: Project }) {
     return () => io.disconnect()
   }, [reduced])
 
-  const { before, after } = project
+  const { before, after } = compare
   const ratio = aspect(after.key)
 
   return (

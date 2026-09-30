@@ -12,12 +12,6 @@
   initial-value: #7a3cff;
 }
 
-@property --wall-line {
-  syntax: '<color>';
-  inherits: true;
-  initial-value: #6a22e0;
-}
-
 :root {
   /* marca */
   --graphite: #1d1d1b;
@@ -40,11 +34,11 @@
   --fs-40: 2.5rem;
 
   /* forma */
-  --r-window: 16px;
-  --r-panel: 14px;
-  --r-menu: 11px;
-  --r-control: 8px;
-  --r-dock: 26px;
+  --r-window: 1rem;
+  --r-panel: 0.875rem;
+  --r-menu: 0.6875rem;
+  --r-control: 0.5rem;
+  --r-dock: 1.625rem;
 
   /* movimento */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

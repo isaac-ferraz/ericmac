@@ -1,19 +1,35 @@
 .wallpaper {
-  --mx: 60vw;
-  --my: 40vh;
   position: fixed;
   inset: 0;
   overflow: hidden;
-  background:
-    radial-gradient(120% 70% at 50% 110%, color-mix(in srgb, var(--wall-line) 22%, transparent), transparent 60%),
-    var(--desk);
-  transition:
-    background-color 0.4s var(--ease-out),
-    --wall-line 1.1s var(--ease-out);
+  background: var(--desk);
+  transition: background-color 0.4s var(--ease-out);
 }
 
 /* O fundo é parado de propósito: as áreas de vidro (backdrop-filter) por cima dele
-   só recalculam o desfoque quando algo muda, e não a cada quadro. */
+   só recalculam o desfoque quando algo muda, e não a cada quadro. Por isso a luz e
+   a troca de cor só mexem em transform e opacity, que não repintam nada. */
+.wallpaper__scene,
+.wallpaper__tint {
+  position: absolute;
+  inset: 0;
+}
+
+.wallpaper__tint {
+  background: radial-gradient(120% 70% at 50% 110%, color-mix(in srgb, var(--wall-line) 22%, transparent), transparent 60%);
+}
+
+.wallpaper__scene--in {
+  background: var(--desk);
+  animation: wall-in 1.1s var(--ease-out) both;
+}
+
+@keyframes wall-in {
+  from {
+    opacity: 0;
+  }
+}
+
 .wallpaper__lines {
   position: absolute;
   inset: 0;
@@ -25,11 +41,33 @@
   opacity: calc(var(--wall-alpha) * 0.42);
 }
 
+/* a lanterna: um quadrado do tamanho da luz, com a máscara fixa no centro */
 .wallpaper__lit {
+  --lamp: 58vmin;
   position: absolute;
-  inset: 0;
-  -webkit-mask-image: radial-gradient(260px 260px at var(--mx) var(--my), #000 0%, rgba(0, 0, 0, 0.35) 45%, transparent 100%);
-  mask-image: radial-gradient(260px 260px at var(--mx) var(--my), #000 0%, rgba(0, 0, 0, 0.35) 45%, transparent 100%);
+  top: 0;
+  left: 0;
+  width: var(--lamp);
+  height: var(--lamp);
+  overflow: hidden;
+  will-change: transform;
+  -webkit-mask-image: radial-gradient(closest-side, #000 0%, rgba(0, 0, 0, 0.35) 45%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 0%, rgba(0, 0, 0, 0.35) 45%, transparent 100%);
+}
+
+.wallpaper__lit.is-gliding,
+.wallpaper__lit.is-gliding .wallpaper__lit-inner {
+  transition: transform 0.9s var(--ease-out);
+}
+
+/* os contornos dentro dela têm o tamanho da tela e andam ao contrário */
+.wallpaper__lit-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  will-change: transform;
 }
 
 .wallpaper__lines--lit {
@@ -47,4 +85,11 @@
   inset: 0;
   pointer-events: none;
   background: radial-gradient(140% 100% at 50% 40%, transparent 55%, color-mix(in srgb, var(--desk-2) 85%, transparent));
+}
+
+/* no celular a tela é pequena e fica quase toda à mostra: o brilho da cor sobe mais */
+.phone .wallpaper__tint {
+  background:
+    radial-gradient(140% 60% at 50% 105%, color-mix(in srgb, var(--wall-line) 34%, transparent), transparent 65%),
+    radial-gradient(90% 40% at 0% 0%, color-mix(in srgb, var(--wall-line) 14%, transparent), transparent 70%);
 }

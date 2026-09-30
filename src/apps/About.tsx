@@ -15,8 +15,9 @@ export function About() {
   const { mobile } = useShell()
 
   const rows = [
-    { k: t('about.role'), v: `${profile.role[lang]} · ${profile.company}`, sub: profile.companySince[lang] },
+    { k: t('about.role'), v: profile.role[lang] },
     { k: t('about.based'), v: profile.city[lang] },
+    { k: t('about.education'), v: profile.education[lang] },
     { k: t('about.open'), v: profile.availability[lang].join(' · ') },
     { k: t('about.does'), v: profile.disciplines[lang].join(' · ') },
     { k: t('about.tools'), v: profile.tools.join(' · ') },
@@ -31,12 +32,14 @@ export function About() {
             <path key={i} d={d} style={{ opacity: 1 - i * 0.14 }} />
           ))}
         </svg>
-        <img src={avatarUrl} width={276} height={276} alt={lang === 'pt' ? 'Retrato do Eric Mac' : 'Portrait of Eric Mac'} />
+        <img src={avatarUrl} width={276} height={276} alt={lang === 'pt' ? 'Retrato do Eric Macintyre' : 'Portrait of Eric Macintyre'} />
       </div>
 
       <div className="about__info">
         <h1 className="about__name">
-          eric mac<span>.</span>
+          eric{' '}
+          <br />
+          macintyre<span>.</span>
         </h1>
         <p className="about__intro">{t('about.intro')}</p>
 
@@ -44,10 +47,7 @@ export function About() {
           {rows.map((r) => (
             <div key={r.k}>
               <dt>{r.k}</dt>
-              <dd>
-                {r.v}
-                {r.sub && <span> — {r.sub}</span>}
-              </dd>
+              <dd>{r.v}</dd>
             </div>
           ))}
         </dl>

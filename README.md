@@ -1,6 +1,6 @@
-# Eric Mac — portfólio
+# Eric Macintyre — portfólio
 
-Portfólio do **Eric Mac** (Designer de Produtos na XP Inc.) como um **Mac**: barra de
+Portfólio do **Eric Macintyre** (UI/UX Designer) como um **Mac**: barra de
 menus, Dock, janelas, Spotlight, Central de Controle. No celular, o mesmo conteúdo
 vira um **iPhone**: tela inicial com widgets, apps em tela cheia.
 
@@ -9,19 +9,20 @@ a nostalgia do XP pelo macOS atual.
 
 ## O conceito
 
-- **O Mac é do Eric.** "Sobre este Mac" vira *Sobre o Eric Mac*. O símbolo no lugar
+- **O Mac é do Eric.** "Sobre este Mac" vira *Sobre o Eric Macintyre*. O símbolo no lugar
   da maçã é a forma do banner dele no Behance: uma cápsula e um círculo em
   contornos concêntricos (`src/brand/shapes.ts` desenha a forma em código).
 - **O papel de parede é a assinatura.** São os contornos do banner repetidos, com
   uma luz que acende as linhas sob o cursor. Quando um projeto está em foco, o fundo
-  inteiro assume a cor da marca dele — azul Kozok, verde Tecinsoles, verde-petróleo
-  Raízes — e volta ao roxo do Eric quando ele sai de foco. Dá para desligar na
+  inteiro assume a cor da marca dele — roxo Healthy Creatives, azul Kozok, verde
+  Tecinsoles, verde-petróleo Raízes — e volta ao roxo do Eric quando ele sai de foco. Dá para desligar na
   Central de Controle.
 - **A voz é a dele.** Títulos em minúsculas com ponto final ("o conceito.",
   "aplicações."), como nos cases do Behance, na fonte display (Unbounded). Todo case
-  segue a ordem dele: ponto de partida → antes → conceito → sistema → aplicações, e
-  sempre tem **antes/depois** — aqui, um comparador arrastável.
-- Na mesa: widget com nome e disponibilidade, widget do projeto mais recente, as três
+  segue a ordem dele: ponto de partida → antes → conceito → sistema → aplicações.
+  Os redesigns têm **antes/depois**, num comparador arrastável; o Healthy Creatives,
+  marca criada do zero (TCC dele), não tem.
+- Na mesa: widget com nome e disponibilidade, widget do projeto mais recente, as quatro
   pastas de projeto tingidas com a cor de cada marca e a capa aparecendo por dentro.
 
 ## O que tem
@@ -29,12 +30,12 @@ a nostalgia do XP pelo macOS atual.
 | App | O que faz |
 | --- | --- |
 | **Projetos** (Finder) | grade/lista, filtros por campo e ferramenta, tags coloridas, Quick Look com Espaço |
-| **Case** | capa, ficha técnica, texto, comparador antes/depois, paleta com hex copiável, galeria com lightbox, próximo projeto |
+| **Case** | capa, ficha técnica, texto, comparador antes/depois (nos redesigns), paleta com hex copiável, galeria com lightbox, próximo projeto |
 | **Sobre** | o "Sobre este Mac" do Eric |
 | **Contato** (Mail) | rascunho já endereçado que abre o app de e-mail; WhatsApp, ligar, LinkedIn, Behance, Instagram, vCard |
 | **Mensagens** | os comentários deixados nos projetos do Behance |
 | **Notas** | "como eu trabalho." e "sobre este mac." |
-| **Lixeira** | as identidades aposentadas (os "antes"). Não dá para esvaziar. |
+| **Lixeira** | as identidades aposentadas (os "antes" dos redesigns). Não dá para esvaziar. |
 
 Também: Spotlight (`Ctrl K` / `⌘K`), menus navegáveis por teclado, menu de contexto
 na mesa, tema claro/escuro/automático, PT/EN, janelas arrastáveis e redimensionáveis,
@@ -61,11 +62,14 @@ em Vercel ou Netlify sem mudança.
 ## Estrutura
 
 ```
-conteudo/behance/        fonte da verdade do conteúdo
+conteudo/behance/        fonte da verdade do conteúdo (Kozok, Tecinsoles, Raízes)
   projetos.md            textos integrais, datas, ferramentas, paletas, como ele se apresenta
   perfil.json            dados do perfil no Behance
   imagens/               originais (resolução de upload) + avatar + banner
   derivados/             recortes antes/depois de Kozok e Tecinsoles
+conteudo/linkedin/       Healthy Creatives (TCC), do post dele no LinkedIn
+  projeto.md             texto integral do post, data, orientação, lista de imagens
+  imagens/               as 12 fotos do post
 src/
   data/                  profile.ts · projects.ts · notes.ts — todo o conteúdo do site
   i18n/                  strings de interface PT/EN
@@ -77,8 +81,10 @@ public/                  favicon, apple-touch-icon, og-image
 ```
 
 Para trocar um texto, mexa em `src/data/`. Para adicionar um projeto, coloque as
-imagens em `conteudo/behance/imagens/` e acrescente um objeto em `src/data/projects.ts`
-— Finder, Spotlight, menus, mesa e celular usam a mesma lista.
+imagens em `conteudo/behance/imagens/` (ou `conteudo/linkedin/imagens/`) e acrescente
+um objeto em `src/data/projects.ts` — Finder, Spotlight, menus, mesa e celular usam a
+mesma lista. `compare` (antes/depois) é opcional; `link` diz se o projeto está no
+Behance ou no LinkedIn; `pair` põe dois retratos lado a lado na galeria.
 
 ## Para o Eric revisar
 
@@ -86,7 +92,9 @@ Tudo o que não veio pronto do Behance está marcado no código com `draft` ou `
 
 - [ ] **E-mail** — `eric@gmail.com` foi o que recebemos; confirmar (`src/data/profile.ts`, `index.html`).
 - [ ] **Texto do Tecinsoles** — o Behance só tem imagens; o texto foi escrito a partir das peças (`src/data/projects.ts`, `draft: true`).
-- [ ] **Nota "como eu trabalho."** — é uma leitura do método que se repete nos três cases (`src/data/notes.ts`).
+- [ ] **Healthy Creatives** — as três primeiras seções são o texto do post dele (em inglês; o PT é tradução, em primeira pessoa como no post). A seção "o sistema." e a paleta (roxo `#3B1E8C`, azul-tinta `#23279A`) saíram das fotos (`draft: true`).
+- [ ] **Fotos do Healthy Creatives em maior resolução** — sem login o LinkedIn só entrega 800px para 7 delas (ver `conteudo/linkedin/projeto.md`); se o Eric mandar os arquivos originais, é só substituir em `conteudo/linkedin/imagens/` com o mesmo nome.
+- [ ] **Nota "como eu trabalho."** — é uma leitura do método que se repete nos cases do Behance (`src/data/notes.ts`).
 - [ ] **Frase do "Sobre"** — "pega marcas que explicam demais…" (`about.intro` em `src/i18n/strings.ts`).
 - [ ] **Traduções para o inglês** de todos os textos dos cases.
 - [ ] **Instagram** — o link aponta para `@oericmac`, tirado da capa do Kozok.
@@ -99,11 +107,32 @@ Rodado contra o build de produção (`pnpm preview`), com Playwright + axe-core:
   temas claro e escuro, em todas as janelas: 0 violações.
 - **Responsivo** — sem rolagem horizontal de 320 a 1600px (varredura de 8 em 8px).
   Abaixo de 900px de largura vira a versão iPhone.
+- **Telas conferidas** (30/09/2026) — iPhone 360, 390 e 430; celular deitado 844×390;
+  tablet 768×1024 e 820×1180; Mac 1280×720, 1366×768, 1440×900, 1920×1080 e 2560×1440.
 - **Interação** — arrastar, minimizar para o Dock e restaurar, maximizar, busca sem
   acento ("raizes" acha Raízes), troca de idioma, menus pelo teclado, lightbox com
   setas e Esc, comparador pelo teclado, endereço acompanhando a janela: tudo passa,
   sem erros de JavaScript.
 - **Movimento** — `prefers-reduced-motion` pula o boot e desliga as molas.
+
+## Responsivo sem px
+
+- **No Mac, 1rem acompanha a tela.** A base de tamanho é uma fração da largura e da
+  altura somada a uma parte da letra do navegador (`<style>` do `index.html`); vale o
+  padrão exato em 1440×900, a referência do design. Todo o layout é em `rem`, `%`,
+  `fr`, `vw/dvh` e `cqi`, então a mesa inteira cresce num monitor grande e encolhe num
+  notebook, sem ilhas vazias nem aperto.
+- **Janelas em fração da tela.** O tamanho inicial de cada app é o de desenho em rem,
+  limitado a uma fração da área útil (`defaultSize` em `src/os/windows.ts`); Dock,
+  barra de menus e limites de arrasto também são em rem.
+- **Ficaram em px, de propósito:** linhas finas e bordas (0,5 e 1px), sombras,
+  desfoques do vidro e `stroke-width`. Em proporção, uma linha fina some ou engrossa
+  conforme a tela.
+- **iPhone:** grade de 4 colunas em fração com fileiras completas (widget "mais
+  recente" 2×2 ao lado dos quatro projetos; apps e a pasta **Redes** embaixo), ícones
+  medidos como fração da célula. **Deitado:** widget à esquerda e 6 colunas à direita.
+  **Tablet:** a mesma grade, maior. O fundo tem o brilho da cor e a luz dos contornos
+  desliza até onde o dedo toca; no case, a capa corre por baixo da barra de vidro.
 
 ## Desempenho
 
@@ -132,3 +161,31 @@ O que mudou e por quê:
   inteira a cada quadro.
 - **Fontes.** O "ē" do ícone do Behance virou "Be" + um traço desenhado, e Inter e
   Unbounded (latin) são pré-carregadas pelo plugin `preloadFonts` em `vite.config.ts`.
+
+### Render (30/09/2026)
+
+Chrome com GPU, CPU 4× mais lenta, ~3 s de cada gesto; quadros acima de 16,7 ms
+(travadas). "Antes" é o último commit com o conserto do vidro abaixo aplicado, para a
+comparação ser justa.
+
+| gesto | antes | depois |
+| --- | --- | --- |
+| mouse passeando pela mesa | 122–149 quadros travados | **0** |
+| mouse no Dock | 152–173 | **0** |
+| arrastar a janela Projetos | 109–145 | **0–1** |
+| abrir três cases seguidos | 50–52 (pior quadro 83 ms) | **11–12** (pior 17 ms) |
+
+- **Vidro que não aparecia.** O minificador de CSS descartava `backdrop-filter`
+  quando vinha junto com `-webkit-backdrop-filter`, e o Chrome não lê a versão com
+  prefixo: o site publicado não tinha desfoque nenhum. Agora o código só tem a forma
+  padrão e o build gera o prefixo.
+- **Luz do cursor sem repintar.** Era uma máscara de tela cheia que mudava a cada
+  movimento. Virou uma "lanterna" do tamanho da luz que só se desloca (`transform`),
+  com os contornos dentro andando ao contrário para seguirem alinhados.
+- **Troca de cor por cruzamento.** A cena na cor nova aparece por cima só com
+  opacidade, em vez de repintar a tela inteira por 1,1 s.
+- **Barra lateral sem desfoque inútil.** Ela fica sobre o fundo opaco da janela;
+  pinta-se a cor que o vidro daria, idêntica, sem refazer desfoque ao arrastar.
+- **Dock sem layout forçado.** O centro de cada ícone é medido uma vez, ao entrar no
+  Dock, e não 9 vezes por quadro.
+- **Lightbox sem desfoque** por baixo de um fundo 94% escuro, onde ele não aparecia.

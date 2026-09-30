@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import { Wallpaper } from '../os/Wallpaper'
 import { useWindows, topWindow, type AppId } from '../os/windows'
@@ -25,11 +26,16 @@ type Tile =
   | { kind: 'project'; slug: (typeof projects)[number]['slug'] }
   | { kind: 'link'; href: string; icon: IconName; label: string }
 
+// A grade fecha fileiras inteiras: o widget "mais recente" (2×2) ao lado dos
+// quatro projetos, e embaixo os apps com as redes juntas numa pasta, como no iOS.
 const grid: Tile[] = [
   ...projects.map((p) => ({ kind: 'project' as const, slug: p.slug })),
   { kind: 'app', app: 'messages', icon: 'messages' },
   { kind: 'app', app: 'notes', icon: 'notes' },
   { kind: 'app', app: 'trash', icon: 'trash' },
+]
+
+const social: Extract<Tile, { kind: 'link' }>[] = [
   { kind: 'link', href: profile.contact.behance, icon: 'behance', label: 'Behance' },
   { kind: 'link', href: profile.contact.linkedin, icon: 'linkedin', label: 'LinkedIn' },
   { kind: 'link', href: profile.contact.instagram, icon: 'instagram', label: 'Instagram' },
@@ -53,7 +59,7 @@ export function Phone() {
 
   return (
     <div className="phone">
-      <Wallpaper interactive={false} />
+      <Wallpaper />
       <StatusBar />
       <main id="mesa" className="home" aria-hidden={top ? true : undefined} inert={top ? true : undefined}>
         <HomeScreen />
@@ -126,54 +132,51 @@ function HomeScreen() {
             {t('widget.available')}
           </p>
           <h1 className="pwidget__name">
-            eric mac<span>.</span>
+            eric{' '}
+            <br />
+            macintyre<span>.</span>
           </h1>
           <p className="pwidget__role">
-            {profile.role[lang]} · {profile.company}
+            {profile.role[lang]}
           </p>
         </section>
 
-        <div className="home__row">
-          <button
-            type="button"
-            className="pwidget pwidget--latest"
-            onClick={(e) => {
-              rememberTap(e)
-              openProject(latest.slug)
-            }}
-            style={{ ['--w-accent' as string]: latest.accent }}
-            aria-label={`${t('widget.latest')}: ${latest.name}`}
-          >
-            <Pic k={latest.cover.key} alt="" thumb sizes="50vw" />
-            <span className="widget__latest-label">
-              <small>{t('widget.latest')}</small>
-              <strong>
-                {latest.name.toLowerCase()}
-                <span>.</span>
-              </strong>
-            </span>
-          </button>
-          <ul className="home__mini">
-            {grid.slice(0, 4).map((tile, i) => (
-              <li key={i}>
-                <TileButton tile={tile} />
-              </li>
-            ))}
-          </ul>
-        </div>
-
         <ul className="home__grid">
-          {grid.slice(4).map((tile, i) => (
+          <li className="home__feature">
+            <button
+              type="button"
+              className="pwidget pwidget--latest"
+              onClick={(e) => {
+                rememberTap(e)
+                openProject(latest.slug)
+              }}
+              style={{ ['--w-accent' as string]: latest.accent }}
+              aria-label={`${t('widget.latest')}: ${latest.name}`}
+            >
+              <Pic k={latest.teaser ?? latest.cover.key} alt="" sizes="(min-width: 37.5em) 30vw, 50vw" />
+              <span className="widget__latest-label">
+                <small>{t('widget.latest')}</small>
+                <strong>
+                  {latest.name.toLowerCase()}
+                  <span>.</span>
+                </strong>
+              </span>
+            </button>
+          </li>
+          {grid.map((tile, i) => (
             <li key={i}>
               <TileButton tile={tile} />
             </li>
           ))}
+          <li>
+            <SocialFolder />
+          </li>
         </ul>
       </div>
 
       <nav className="home__dock" aria-label="Dock">
         <a className="tile" href={profile.contact.phoneHref} aria-label={`${t('app.phone')} ${profile.contact.phoneDisplay}`}>
-          <AppIcon name="phone" size={60} />
+          <AppIcon name="phone" size={64} />
         </a>
         <TileButton tile={{ kind: 'app', app: 'contact', icon: 'contact' }} bare />
         <TileButton tile={{ kind: 'app', app: 'projects', icon: 'projects' }} bare />
@@ -190,7 +193,7 @@ function TileButton({ tile, bare = false }: { tile: Tile; bare?: boolean }) {
   if (tile.kind === 'link')
     return (
       <a className="tile" href={tile.href} target="_blank" rel="noopener noreferrer">
-        <AppIcon name={tile.icon} size={60} />
+        <AppIcon name={tile.icon} size={64} />
         {!bare && <span className="tile__label">{tile.label}</span>}
       </a>
     )
@@ -208,7 +211,7 @@ function TileButton({ tile, bare = false }: { tile: Tile; bare?: boolean }) {
         }}
       >
         <span className="tile__folder">
-          <FolderIcon accent={p.accent} cover={p.cover.key} size={56} />
+          <FolderIcon accent={p.accent} cover={p.cover.key} size={64} />
         </span>
         <span className="tile__label">{p.name}</span>
       </button>
@@ -227,8 +230,82 @@ function TileButton({ tile, bare = false }: { tile: Tile; bare?: boolean }) {
         openApp(tile.app)
       }}
     >
-      <AppIcon name={tile.icon} size={60} />
+      <AppIcon name={tile.icon} size={64} />
       {!bare && <span className="tile__label">{label}</span>}
     </button>
+  )
+}
+
+/** Pasta "Redes": toca e abre por cima da tela inicial, como uma pasta do iOS. */
+function SocialFolder() {
+  const t = useT()
+  const reduced = useReducedMotion()
+  const [open, setOpen] = useState(false)
+  const opener = useRef<HTMLButtonElement>(null)
+  const label = t('mobile.social')
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      e.stopPropagation()
+      setOpen(false)
+    }
+    window.addEventListener('keydown', onKey, true)
+    return () => {
+      window.removeEventListener('keydown', onKey, true)
+      opener.current?.focus()
+    }
+  }, [open])
+
+  return (
+    <>
+      <button ref={opener} type="button" className="tile" aria-haspopup="dialog" aria-expanded={open} onClick={() => setOpen(true)}>
+        <span className="tile__stack" aria-hidden="true">
+          {social.map((l) => (
+            <AppIcon key={l.icon} name={l.icon} size={20} />
+          ))}
+        </span>
+        <span className="tile__label">{label}</span>
+      </button>
+      {createPortal(
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              className="folder"
+              role="dialog"
+              aria-modal="true"
+              aria-label={label}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setOpen(false)}
+            >
+              <motion.div
+                className="folder__panel"
+                initial={reduced ? false : { scale: 0.6, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={reduced ? { opacity: 0 } : { scale: 0.8, opacity: 0 }}
+                transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <p className="folder__title">{label}</p>
+                <ul className="folder__grid">
+                  {social.map((l) => (
+                    <li key={l.icon}>
+                      <TileButton tile={l} />
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+              <button type="button" className="folder__close" autoFocus onClick={() => setOpen(false)}>
+                {t('mobile.closeFolder')}
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body,
+      )}
+    </>
   )
 }

@@ -14,6 +14,9 @@ const files: Record<string, string> = {
   raizes: 'raizes-antigo.png',
 }
 
+// Só redesigns têm um "antes" para jogar fora.
+const redesigns = projects.flatMap((p) => (p.compare ? [{ p, before: p.compare.before }] : []))
+
 export function Trash() {
   const t = useT()
   const lang = useLang()
@@ -43,11 +46,11 @@ export function Trash() {
         <h1 className="eyebrow trash__title">{t('trash.title')}</h1>
         <p className="trash__hint">{t('trash.hint')}</p>
         <ul className={`trash__grid${shake ? ' is-shaking' : ''}`} key={shake}>
-          {projects.map((p) => (
+          {redesigns.map(({ p, before }) => (
             <li key={p.slug}>
               <button type="button" className="trash__file" onClick={() => openProject(p.slug)}>
                 <span className="trash__thumb">
-                  <Pic k={p.before.key} alt={p.before.alt[lang]} thumb sizes="240px" />
+                  <Pic k={before.key} alt={before.alt[lang]} thumb sizes="240px" />
                 </span>
                 <span className="trash__name">{files[p.slug]}</span>
                 <span className="trash__meta">{t('trash.was', { name: p.name })}</span>

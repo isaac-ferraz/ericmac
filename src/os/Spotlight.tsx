@@ -59,7 +59,7 @@ function Panel() {
     }))
     const apps: [string, IconName, string, () => void][] = [
       [t('app.projects'), 'projects', 'finder pastas folders trabalhos work portfolio', () => openApp('projects')],
-      [t('app.about'), 'about', 'eric sobre about bio quem who curriculo cv xp designer', () => openApp('about')],
+      [t('app.about'), 'about', 'eric sobre about bio quem who curriculo cv ui ux designer', () => openApp('about')],
       [t('app.contact'), 'contact', 'contato contact email e-mail mail falar hire contratar', () => openApp('contact')],
       [t('app.messages'), 'messages', 'mensagens messages depoimentos comentarios testimonials reviews', () => openApp('messages')],
       [t('app.notes'), 'notes', 'notas notes processo process metodo method como trabalho', () => openApp('notes')],

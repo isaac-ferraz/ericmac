@@ -14,7 +14,7 @@ import { useT, useLang } from './i18n'
 const Desktop = lazy(() => import('./os/Desktop').then((m) => ({ default: m.Desktop })))
 const Phone = lazy(() => import('./mobile/Phone').then((m) => ({ default: m.Phone })))
 
-const MOBILE_QUERY = '(max-width: 899px), (pointer: coarse) and (max-height: 540px)'
+const MOBILE_QUERY = '(max-width: 56.1875em), (pointer: coarse) and (max-height: 33.75em)'
 
 export default function App() {
   const t = useT()

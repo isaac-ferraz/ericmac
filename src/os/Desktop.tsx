@@ -5,7 +5,7 @@ import { MenuBar, MenuPanel, type MenuItem } from './MenuBar'
 import { Dock } from './Dock'
 import { Window } from './Window'
 import { Spotlight } from './Spotlight'
-import { useWindows } from './windows'
+import { useWindows, rem } from './windows'
 import { useUI } from './ui'
 import { useSettings } from './settings'
 import { openApp, openProject } from './actions'
@@ -80,10 +80,12 @@ function Widgets() {
           {t('widget.available')}
         </p>
         <h1 className="widget__name">
-          eric mac<span>.</span>
+          eric{' '}
+          <br />
+          macintyre<span>.</span>
         </h1>
         <p className="widget__role">
-          {profile.role[lang]} · {profile.company}
+          {profile.role[lang]}
         </p>
         <div className="widget__actions">
           <button type="button" className="btn btn--primary" onClick={() => openApp('projects')}>
@@ -102,7 +104,7 @@ function Widgets() {
         style={{ ['--w-accent' as string]: latest.accent }}
         aria-label={`${t('widget.latest')}: ${latest.name}, ${latest.tagline[lang]}`}
       >
-        <Pic k={latest.cover.key} alt="" thumb sizes="320px" />
+        <Pic k={latest.teaser ?? latest.cover.key} alt="" sizes="(max-width: 1180px) 300px, 340px" />
         <span className="widget__latest-label">
           <small>{t('widget.latest')}</small>
           <strong>
@@ -185,8 +187,8 @@ function DesktopMenu({ at, onClose }: { at: { x: number; y: number }; onClose: (
     'sep',
     { label: t('menu.aboutEric'), onSelect: () => openApp('about') },
   ]
-  const x = Math.min(at.x, window.innerWidth - 240)
-  const y = Math.min(at.y, window.innerHeight - 260)
+  const x = Math.min(at.x, window.innerWidth - rem(15))
+  const y = Math.min(at.y, window.innerHeight - rem(16.25))
   return <MenuPanel className="menu--context" items={items} autoFocus={false} onClose={onClose} style={{ position: 'fixed', left: x, top: y, zIndex: 7000 }} />
 }
 

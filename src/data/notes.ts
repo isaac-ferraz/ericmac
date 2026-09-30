@@ -68,12 +68,12 @@ export const notes: Note[] = [
         en: 'This Mac is Eric’s portfolio. The wallpaper lines come from his Behance banner: a capsule and a circle drawn in contours.',
       },
       {
-        pt: 'Cada marca tem a sua cor. Quando um projeto está em foco, o fundo inteiro assume a cor dele: azul Kozok, verde Tecinsoles, verde-petróleo Raízes.',
-        en: 'Every brand has its colour. When a project is in focus, the whole background takes it on: Kozok blue, Tecinsoles green, Raízes teal.',
+        pt: 'Cada marca tem a sua cor. Quando um projeto está em foco, o fundo inteiro assume a cor dele: roxo Healthy Creatives, azul Kozok, verde Tecinsoles, verde-petróleo Raízes.',
+        en: 'Every brand has its colour. When a project is in focus, the whole background takes it on: Healthy Creatives purple, Kozok blue, Tecinsoles green, Raízes teal.',
       },
       {
-        pt: 'Atalhos: Ctrl K (ou ⌘K) abre a busca. Espaço pré-visualiza um projeto na janela Projetos. Setas passam as imagens ampliadas.',
-        en: 'Shortcuts: Ctrl K (or ⌘K) opens search. Space previews a project in the Projects window. Arrow keys flip through enlarged images.',
+        pt: 'Atalhos: Ctrl K (ou ⌘K) abre a busca. Espaço pré-visualiza um projeto na janela Projetos. Setas passam as imagens ampliadas. Clicar no ícone do Dock de um app que já está na frente recolhe a janela.',
+        en: 'Shortcuts: Ctrl K (or ⌘K) opens search. Space previews a project in the Projects window. Arrow keys flip through enlarged images. Clicking the Dock icon of the app in front tucks its window away.',
       },
     ],
   },

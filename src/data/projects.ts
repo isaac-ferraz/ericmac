@@ -1,17 +1,20 @@
-// Os três projetos publicados no Behance, na ordem em que o Behance os mostra
-// (mais recente primeiro). Textos de Kozok e Raízes são os originais do Eric;
-// as versões em inglês são tradução. O Tecinsoles não tem texto no Behance —
-// o texto abaixo foi escrito a partir das peças e está marcado como `draft`
-// para o Eric revisar.
+// Os projetos, do mais recente para o mais antigo. Kozok, Tecinsoles e Raízes
+// vêm do Behance (conteudo/behance): textos de Kozok e Raízes são os originais
+// do Eric, e as versões em inglês são tradução. O Tecinsoles não tem texto no
+// Behance, então o texto foi escrito a partir das peças (`draft`).
+// O Healthy Creatives, TCC do Eric, vem de um post dele no LinkedIn
+// (conteudo/linkedin): o post é em inglês, então aqui o EN segue o post e o PT
+// é tradução. A seção "o sistema." e a paleta saíram das fotos (`draft`).
 
 import type { L } from '../i18n'
 
-export type ProjectImage = { key: string; alt: L }
+/** `pair`: duas imagens seguidas com `pair` ficam lado a lado na galeria */
+export type ProjectImage = { key: string; alt: L; pair?: true }
 
 export type Section = { heading: L; body: L[] }
 
 export type Project = {
-  slug: 'kozok' | 'tecinsoles' | 'raizes'
+  slug: 'healthy-creatives' | 'kozok' | 'tecinsoles' | 'raizes'
   name: string
   tagline: L
   sector: L
@@ -24,12 +27,13 @@ export type Project = {
   onAccent: string
   tools: string[]
   fields: L[]
-  behance: string
+  /** onde o projeto está publicado */
+  link: { kind: 'behance' | 'linkedin'; url: string }
   cover: ProjectImage
-  before: ProjectImage
-  after: ProjectImage
-  /** onde o comparador antes/depois entra no texto (índice da seção) */
-  compareAfterSection: number
+  /** imagem do widget "mais recente", quando o texto da capa briga com o rótulo por cima */
+  teaser?: string
+  /** só redesigns têm antes/depois; `afterSection` é a seção depois da qual o comparador entra */
+  compare?: { before: ProjectImage; after: ProjectImage; afterSection: number }
   sections: Section[]
   gallery: ProjectImage[]
   palette?: { name: string; hex: string }[]
@@ -37,6 +41,161 @@ export type Project = {
 }
 
 export const projects: Project[] = [
+  {
+    slug: 'healthy-creatives',
+    name: 'Healthy Creatives',
+    tagline: { pt: 'TCC de design gráfico', en: 'graphic design thesis' },
+    sector: { pt: 'suplementos para criativos', en: 'supplements for creatives' },
+    published: '2026-02-12',
+    accent: '#3B1E8C',
+    glow: '#8C6CFF',
+    onAccent: '#FFFFFF',
+    tools: [], // o post não cita ferramentas
+    fields: [
+      { pt: 'Marca', en: 'Branding' },
+      { pt: 'Design de embalagem', en: 'Packaging design' },
+      { pt: 'Design gráfico', en: 'Graphic design' },
+    ],
+    link: {
+      kind: 'linkedin',
+      url: 'https://www.linkedin.com/posts/eric-macintyre-61863b259_i-have-a-major-milestone-to-share-in-december-ugcPost-7427816587925282816-xKut/',
+    },
+    cover: {
+      key: 'healthy-7',
+      alt: {
+        pt: 'Capa: caixa de papelão roxa com "Healthy Creatives" em branco e a ilustração de uma cabeça aberta de onde saem lápis, pincéis e uma lâmpada.',
+        en: 'Cover: a purple mailer box with "Healthy Creatives" in white and a drawing of an open head spilling pencils, brushes and a light bulb.',
+      },
+    },
+    teaser: 'healthy-10',
+    draft: true, // TODO(Eric): seção "o sistema." e paleta escritas a partir das fotos; revisar.
+    sections: [
+      {
+        heading: { pt: 'o ponto de partida.', en: 'the starting point.' },
+        body: [
+          {
+            pt: 'Healthy Creatives é o meu trabalho de conclusão de curso em Design Gráfico no Centro Universitário Belas Artes de São Paulo, concluído em dezembro de 2025. O projeto nasceu de uma preocupação real: profissionais criativos lidam todos os dias com estresse, rotina sedentária e falta de foco.',
+            en: 'Healthy Creatives is my graduation project in Graphic Design at Centro Universitário Belas Artes de São Paulo, completed in December 2025. The project was born from a real concern: creative professionals deal daily with stress, sedentary routines, and lack of focus.',
+          },
+        ],
+      },
+      {
+        heading: { pt: 'a proposta.', en: 'the proposal.' },
+        body: [
+          {
+            pt: 'A proposta foi conectar saúde, suplementação funcional e design da informação para apoiar a performance criativa com clareza, responsabilidade e sem promessas exageradas.',
+            en: 'The proposal was to connect health, functional supplementation, and information design to support creative performance with clarity, responsibility, and no exaggerated promises.',
+          },
+        ],
+      },
+      {
+        heading: { pt: 'o princípio.', en: 'the principle.' },
+        body: [
+          {
+            pt: 'Desenvolvi a estratégia de marca, a identidade visual e a linha de embalagens guiado por um princípio simples: menos ruído, mais clareza. Menos atrito, mais execução.',
+            en: 'I developed the brand strategy, visual identity, and packaging line guided by one simple principle: less noise, more clarity. Less friction, more execution.',
+          },
+        ],
+      },
+      {
+        heading: { pt: 'o sistema.', en: 'the system.' },
+        body: [
+          {
+            pt: 'A linha tem três suplementos, Curcumina, Vitamina B12 e Bacopa Monnieri, em potes e caixas brancas com o nome da marca em caixa alta condensada e ilustrações de traço azul de criativos no dia a dia. Os três se juntam no Kit Criatividade, que chega numa caixa roxa, acompanhado de uma ecobag de algodão cru.',
+            en: 'The line has three supplements, Curcumin, Vitamin B12 and Bacopa Monnieri, in white jars and boxes with the brand name in condensed capitals and blue line drawings of creatives going about their day. The three come together in the Creativity Kit, shipped in a purple box with a raw-cotton drawstring bag.',
+          },
+        ],
+      },
+    ],
+    gallery: [
+      {
+        key: 'healthy-6',
+        alt: {
+          pt: 'Caixa branca do Kit Criatividade: Curcumina, Vitamina B12 e Bacopa Monnieri, com a ilustração de uma cabeça cheia de ideias.',
+          en: 'The white Creativity Kit box: Curcumin, Vitamin B12 and Bacopa Monnieri, with a drawing of a head full of ideas.',
+        },
+      },
+      {
+        key: 'healthy-5',
+        alt: {
+          pt: 'Kit aberto, com as três caixas de suplemento lado a lado sobre veludo preto.',
+          en: 'The open kit, with the three supplement boxes side by side on black velvet.',
+        },
+      },
+      {
+        key: 'healthy-4',
+        alt: {
+          pt: 'As três caixas de suplemento, cada uma com um criativo diferente desenhado em azul.',
+          en: 'The three supplement boxes, each with a different creative drawn in blue.',
+        },
+      },
+      {
+        key: 'healthy-3',
+        alt: {
+          pt: 'Potes de Curcumina e Vitamina B12 sobre as caixas, com a ecobag ao fundo.',
+          en: 'Curcumin and Vitamin B12 jars on top of their boxes, with the tote bag behind.',
+        },
+      },
+      {
+        key: 'healthy-1',
+        alt: {
+          pt: 'Mão tirando o pote de Bacopa Monnieri de dentro da caixa.',
+          en: 'A hand lifting the Bacopa Monnieri jar out of its box.',
+        },
+      },
+      {
+        key: 'healthy-2',
+        alt: {
+          pt: 'Mão segurando uma caixa com a ilustração de um criativo andando de fone e mochila.',
+          en: 'A hand holding a box with a drawing of a creative walking with headphones and a backpack.',
+        },
+      },
+      {
+        key: 'healthy-8',
+        pair: true,
+        alt: {
+          pt: 'Ecobag de algodão cru pendurada por cordas, com o criativo andando e o nome da marca na vertical.',
+          en: 'A raw-cotton drawstring bag hanging from ropes, with the walking creative and the brand name set vertically.',
+        },
+      },
+      {
+        key: 'healthy-9',
+        pair: true,
+        alt: {
+          pt: 'Mão segurando a ecobag pelas alças.',
+          en: 'A hand holding the drawstring bag by its straps.',
+        },
+      },
+      {
+        key: 'healthy-10',
+        alt: {
+          pt: 'Detalhe da estampa da ecobag: o criativo de fone e mochila.',
+          en: 'Close-up of the bag print: the creative with headphones and a backpack.',
+        },
+      },
+      {
+        key: 'healthy-11',
+        alt: {
+          pt: 'Estande roxo da apresentação com cartazes, potes, caixas, o kit e a ecobag.',
+          en: 'The purple presentation stand with posters, jars, boxes, the kit and the bag.',
+        },
+      },
+      {
+        key: 'healthy-12',
+        alt: {
+          pt: 'Eric no estande da apresentação, atrás de um balcão com o kit e um notebook.',
+          en: 'Eric at the presentation stand, behind a counter with the kit and a laptop.',
+        },
+      },
+    ],
+    palette: [
+      { name: 'Creative Purple', hex: '#3B1E8C' },
+      { name: 'Ink Blue', hex: '#23279A' },
+      { name: 'Black', hex: '#111111' },
+      { name: 'White', hex: '#FFFFFF' },
+    ],
+  },
+
   {
     slug: 'kozok',
     name: 'Kozok',
@@ -52,7 +211,7 @@ export const projects: Project[] = [
       { pt: 'Design de ícones', en: 'Icon design' },
       { pt: 'Design de logotipo', en: 'Logo design' },
     ],
-    behance: 'https://www.behance.net/gallery/243082507/KOZOK',
+    link: { kind: 'behance', url: 'https://www.behance.net/gallery/243082507/KOZOK' },
     cover: {
       key: 'kozok-1',
       alt: {
@@ -60,21 +219,23 @@ export const projects: Project[] = [
         en: 'Kozok rebrand cover: a blue tote bag with the new icon, hanging on a metal mesh.',
       },
     },
-    before: {
-      key: 'kozok-antes',
-      alt: {
-        pt: 'Antes: marca Óculos Fácil, um carrinho de compras dentro de um celular amarelo.',
-        en: 'Before: the Óculos Fácil mark, a shopping cart inside a yellow phone.',
+    compare: {
+      before: {
+        key: 'kozok-antes',
+        alt: {
+          pt: 'Antes: marca Óculos Fácil, um carrinho de compras dentro de um celular amarelo.',
+          en: 'Before: the Óculos Fácil mark, a shopping cart inside a yellow phone.',
+        },
       },
-    },
-    after: {
-      key: 'kozok-depois',
-      alt: {
-        pt: 'Depois: logotipo Kozok em branco sobre azul, com grafismos pretos de trajeto.',
-        en: 'After: the white Kozok logotype on blue, with black route-like shapes.',
+      after: {
+        key: 'kozok-depois',
+        alt: {
+          pt: 'Depois: logotipo Kozok em branco sobre azul, com grafismos pretos de trajeto.',
+          en: 'After: the white Kozok logotype on blue, with black route-like shapes.',
+        },
       },
+      afterSection: 1,
     },
-    compareAfterSection: 1,
     sections: [
       {
         heading: { pt: 'o ponto de partida.', en: 'the starting point.' },
@@ -159,7 +320,7 @@ export const projects: Project[] = [
       { pt: 'Marca', en: 'Branding' },
       { pt: 'Design de logotipo', en: 'Logo design' },
     ],
-    behance: 'https://www.behance.net/gallery/220323505/TECINSOLES-redesign',
+    link: { kind: 'behance', url: 'https://www.behance.net/gallery/220323505/TECINSOLES-redesign' },
     cover: {
       key: 'tecinsoles-1',
       alt: {
@@ -167,21 +328,23 @@ export const projects: Project[] = [
         en: 'Cover: a black-and-white runner with the stacked Tecinsoles logo and a green line coming off the foot.',
       },
     },
-    before: {
-      key: 'tecinsoles-antes',
-      alt: {
-        pt: 'Antes: engrenagem com ondas azuis ao lado da palavra Tecinsoles em azul e preto.',
-        en: 'Before: a gear with blue waves next to the word Tecinsoles in blue and black.',
+    compare: {
+      before: {
+        key: 'tecinsoles-antes',
+        alt: {
+          pt: 'Antes: engrenagem com ondas azuis ao lado da palavra Tecinsoles em azul e preto.',
+          en: 'Before: a gear with blue waves next to the word Tecinsoles in blue and black.',
+        },
       },
-    },
-    after: {
-      key: 'tecinsoles-depois',
-      alt: {
-        pt: 'Depois: logotipo Tecinsoles em branco sobre preto, com o L em verde no formato de um pé.',
-        en: 'After: the white Tecinsoles logotype on black, with a green foot-shaped L.',
+      after: {
+        key: 'tecinsoles-depois',
+        alt: {
+          pt: 'Depois: logotipo Tecinsoles em branco sobre preto, com o L em verde no formato de um pé.',
+          en: 'After: the white Tecinsoles logotype on black, with a green foot-shaped L.',
+        },
       },
+      afterSection: 0,
     },
-    compareAfterSection: 0,
     draft: true, // TODO(Eric): texto escrito a partir das peças; revisar.
     sections: [
       {
@@ -264,7 +427,7 @@ export const projects: Project[] = [
       { pt: 'Ilustração', en: 'Illustration' },
       { pt: 'Design de logotipo', en: 'Logo design' },
     ],
-    behance: 'https://www.behance.net/gallery/208384195/Raizes-sabor-sem-gluten',
+    link: { kind: 'behance', url: 'https://www.behance.net/gallery/208384195/Raizes-sabor-sem-gluten' },
     cover: {
       key: 'raizes-1',
       alt: {
@@ -272,21 +435,23 @@ export const projects: Project[] = [
         en: 'Cover: the Raízes logotype on green, with a jar of garlic and the line "gluten-free flavour".',
       },
     },
-    before: {
-      key: 'raizes-2',
-      alt: {
-        pt: 'Antes: "Raízes" em letra cursiva dourada sobre verde-escuro.',
-        en: 'Before: "Raízes" in gold script lettering on dark green.',
+    compare: {
+      before: {
+        key: 'raizes-2',
+        alt: {
+          pt: 'Antes: "Raízes" em letra cursiva dourada sobre verde-escuro.',
+          en: 'Before: "Raízes" in gold script lettering on dark green.',
+        },
       },
-    },
-    after: {
-      key: 'raizes-3',
-      alt: {
-        pt: 'Depois: logotipo Raízes em caixa alta condensada, creme sobre verde, com "sabor sem glúten" em amarelo.',
-        en: 'After: the condensed Raízes logotype in cream on green, with "gluten-free flavour" in yellow.',
+      after: {
+        key: 'raizes-3',
+        alt: {
+          pt: 'Depois: logotipo Raízes em caixa alta condensada, creme sobre verde, com "sabor sem glúten" em amarelo.',
+          en: 'After: the condensed Raízes logotype in cream on green, with "gluten-free flavour" in yellow.',
+        },
       },
+      afterSection: 0,
     },
-    compareAfterSection: 0,
     sections: [
       {
         heading: { pt: 'a marca.', en: 'the brand.' },

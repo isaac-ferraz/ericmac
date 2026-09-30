@@ -24,7 +24,7 @@ export function Contact() {
   const mailto = `mailto:${c.email}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(text)}`
 
   const channels: { icon: IconName; label: string; detail: string; href: string; external?: boolean; download?: string }[] = [
-    { icon: 'messages', label: t('contact.whatsapp'), detail: c.phoneDisplay, href: c.whatsapp, external: true },
+    { icon: 'whatsapp', label: t('contact.whatsapp'), detail: c.phoneDisplay, href: c.whatsapp, external: true },
     { icon: 'phone', label: t('contact.call'), detail: c.phoneDisplay, href: c.phoneHref },
     { icon: 'linkedin', label: 'LinkedIn', detail: 'eric-macintyre', href: c.linkedin, external: true },
     { icon: 'behance', label: 'Behance', detail: 'ericmacintyre1', href: c.behance, external: true },
@@ -95,7 +95,7 @@ export function Contact() {
             </li>
           ))}
           <li>
-            <a href={vcardHref()} download="eric-mac.vcf">
+            <a href={vcardHref()} download="eric-macintyre.vcf">
               <AppIcon name="about" size={32} />
               <span>
                 <strong>{t('contact.vcard')}</strong>

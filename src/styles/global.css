@@ -21,6 +21,9 @@ html {
   text-size-adjust: 100%;
 }
 
+/* A base de tamanho do Mac (1rem acompanha a tela) fica no <style> do index.html,
+   para valer desde o primeiro quadro, junto com a tela de boot. */
+
 body {
   font-family: var(--font-ui);
   font-size: var(--fs-13);
@@ -81,7 +84,7 @@ ol {
 
 :focus-visible {
   outline: 2px solid var(--focus);
-  outline-offset: 2px;
+  outline-offset: 0.125rem;
 }
 
 ::selection {
@@ -102,12 +105,12 @@ ol {
 
 .skip-link {
   position: fixed;
-  top: 6px;
+  top: 0.375rem;
   left: 50%;
   translate: -50% -200%;
   z-index: 10000;
-  padding: 8px 14px;
-  border-radius: 999px;
+  padding: 0.5rem 0.875rem;
+  border-radius: 100vmax;
   background: var(--select-strong);
   color: #fff;
   font-weight: 600;
@@ -139,9 +142,9 @@ ol {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  min-height: 28px;
-  padding: 4px 12px;
+  gap: 0.375rem;
+  min-height: 1.75rem;
+  padding: 0.25rem 0.75rem;
   border-radius: var(--r-control);
   font-size: var(--fs-13);
   font-weight: 500;

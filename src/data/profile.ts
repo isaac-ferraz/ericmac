@@ -1,15 +1,15 @@
 // Tudo o que é dado pessoal do Eric fica aqui, num lugar só.
-// Fonte: Behance (conteudo/behance/projetos.md) + contatos passados pelo Isaac.
+// Fonte: Behance (conteudo/behance/projetos.md), post do TCC no LinkedIn
+// (conteudo/linkedin/projeto.md) + contatos passados pelo Isaac.
 
 import type { L } from '../i18n'
 
 export const profile = {
-  name: 'Eric Mac',
+  name: 'Eric Macintyre',
   fullName: 'Eric Macintyre',
-  role: { pt: 'Designer de Produtos', en: 'Product Designer' } satisfies L,
-  company: 'XP Inc.',
-  companySince: { pt: 'desde mar. 2025', en: 'since Mar 2025' } satisfies L,
+  role: { pt: 'UI/UX Designer', en: 'UI/UX Designer' } satisfies L,
   city: { pt: 'São Paulo, Brasil', en: 'São Paulo, Brazil' } satisfies L,
+  education: { pt: 'Design Gráfico · Belas Artes SP, 2025', en: 'Graphic Design · Belas Artes SP, 2025' } satisfies L,
   behanceSince: 2020,
   availability: {
     pt: ['freelance', 'tempo integral', 'remoto', 'relocação'],
@@ -17,8 +17,8 @@ export const profile = {
   },
   tools: ['Photoshop', 'Illustrator'],
   disciplines: {
-    pt: ['identidade visual', 'rebranding', 'logotipo', 'ícones', 'ilustração'],
-    en: ['visual identity', 'rebranding', 'logotype', 'icons', 'illustration'],
+    pt: ['identidade visual', 'rebranding', 'embalagem', 'logotipo', 'ícones', 'ilustração'],
+    en: ['visual identity', 'rebranding', 'packaging', 'logotype', 'icons', 'illustration'],
   },
 
   contact: {

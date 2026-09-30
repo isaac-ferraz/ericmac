@@ -4,8 +4,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
-  padding: 44px 36px 28px;
+  gap: 1.125rem;
+  padding: 2.75rem 2.25rem 1.75rem;
   text-align: center;
   background:
     radial-gradient(90% 50% at 50% 0%, color-mix(in srgb, var(--violet-ui) 16%, transparent), transparent 70%),
@@ -17,7 +17,7 @@
 .about__portrait {
   position: relative;
   flex: none;
-  width: min(300px, 80%);
+  width: min(18.75rem, 80%);
   aspect-ratio: 212 / 112;
 }
 
@@ -53,8 +53,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
-  max-width: 440px;
+  gap: 0.875rem;
+  max-width: 27.5rem;
 }
 
 .about__name {
@@ -78,9 +78,9 @@
 
 .about__specs {
   display: grid;
-  gap: 6px;
+  gap: 0.375rem;
   width: 100%;
-  padding: 14px 0;
+  padding: 0.875rem 0;
   border-block: 1px solid var(--hairline);
   font-size: var(--fs-12);
 }
@@ -88,7 +88,7 @@
 .about__specs div {
   display: grid;
   grid-template-columns: 1fr 1.6fr;
-  gap: 12px;
+  gap: 0.75rem;
   text-align: left;
 }
 
@@ -101,19 +101,15 @@
   color: var(--text-2);
 }
 
-.about__specs dd span {
-  color: var(--text-3);
-}
-
 .about__actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .about--mobile {
-  padding: 16px 20px 40px;
+  padding: 1rem 1.25rem 2.5rem;
   background: var(--surface);
 }
 
@@ -129,12 +125,12 @@
 }
 
 .about--mobile .about__specs {
-  gap: 10px;
+  gap: 0.625rem;
   font-size: var(--fs-15);
 }
 
 .about--mobile .btn {
-  min-height: 44px;
-  padding: 8px 20px;
+  min-height: 2.75rem;
+  padding: 0.5rem 1.25rem;
   font-size: var(--fs-15);
 }

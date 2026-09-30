@@ -14,7 +14,7 @@ export const strings = {
   'app.instagram': { pt: 'Instagram', en: 'Instagram' },
 
   // barra de menus
-  'menu.aboutEric': { pt: 'Sobre o Eric Mac', en: 'About Eric Mac' },
+  'menu.aboutEric': { pt: 'Sobre o Eric Macintyre', en: 'About Eric Macintyre' },
   'menu.controlCenter': { pt: 'Central de Controle…', en: 'Control Center…' },
   'menu.restart': { pt: 'Reiniciar…', en: 'Restart…' },
   'menu.file': { pt: 'Arquivo', en: 'File' },
@@ -110,6 +110,7 @@ export const strings = {
   'case.copyHex': { pt: 'Copiar {hex}', en: 'Copy {hex}' },
   'case.copied': { pt: '{hex} copiado', en: '{hex} copied' },
   'case.behance': { pt: 'Ver no Behance', en: 'View on Behance' },
+  'case.linkedin': { pt: 'Ver no LinkedIn', en: 'View on LinkedIn' },
   'case.next': { pt: 'Próximo projeto', en: 'Next project' },
   'case.prev': { pt: 'Projeto anterior', en: 'Previous project' },
   'case.prevImage': { pt: 'Imagem anterior', en: 'Previous image' },
@@ -122,12 +123,13 @@ export const strings = {
   'about.role': { pt: 'Cargo', en: 'Role' },
   'about.based': { pt: 'Local', en: 'Based in' },
   'about.open': { pt: 'Aberto a', en: 'Open to' },
+  'about.education': { pt: 'Formação', en: 'Education' },
   'about.tools': { pt: 'Ferramentas', en: 'Tools' },
   'about.does': { pt: 'Faz', en: 'Does' },
   'about.since': { pt: 'No Behance desde', en: 'On Behance since' },
   'about.intro': {
-    pt: 'Designer de Produtos na XP Inc. Fora dela, desenha identidades visuais: pega marcas que explicam demais e dá a elas um sistema que se reconhece de longe.',
-    en: 'Product Designer at XP Inc. Outside it, he designs visual identities: he takes brands that over-explain themselves and gives them a system you recognise from afar.',
+    pt: 'UI/UX Designer. Também desenha identidades visuais: pega marcas que explicam demais e dá a elas um sistema que se reconhece de longe.',
+    en: 'UI/UX Designer. He also designs visual identities: he takes brands that over-explain themselves and gives them a system you recognise from afar.',
   },
   'about.projects': { pt: 'Ver projetos', en: 'See projects' },
   'about.contact': { pt: 'Falar com o Eric', en: 'Talk to Eric' },
@@ -171,6 +173,8 @@ export const strings = {
   // mobile
   'mobile.home': { pt: 'Início', en: 'Home' },
   'mobile.back': { pt: 'Voltar', en: 'Back' },
+  'mobile.social': { pt: 'Redes', en: 'Social' },
+  'mobile.closeFolder': { pt: 'Fechar pasta', en: 'Close folder' },
 
   // boot
   'boot.label': { pt: 'Iniciando o Mac do Eric', en: 'Starting Eric’s Mac' },

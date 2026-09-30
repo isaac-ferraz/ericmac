@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useId, useRef, type ReactNode, type PointerEvent as RPointerEvent } from 'react'
 import { motion, animate, useMotionValue } from 'motion/react'
-import { useWindows, topWindow, minSize, type Win } from './windows'
+import { useWindows, topWindow, minSize, menubarH, type Win } from './windows'
 import { dockSlotRect } from './ui'
 import { useReducedMotion } from './settings'
 import { useT } from '../i18n'
@@ -123,7 +123,7 @@ export function Window({ win, title, children }: { win: Win; title: string; chil
     el.classList.add('is-dragging')
     const move = (ev: PointerEvent) => {
       x.set(ox + ev.clientX - startX)
-      y.set(Math.max(30, oy + ev.clientY - startY))
+      y.set(Math.max(menubarH(), oy + ev.clientY - startY))
     }
     const up = () => {
       interacting.current = false
@@ -149,7 +149,7 @@ export function Window({ win, title, children }: { win: Win; title: string; chil
     if (e.button !== 0) return
     e.stopPropagation()
     e.preventDefault()
-    const min = minSize[win.app]
+    const min = minSize(win.app)
     const sx = e.clientX
     const sy = e.clientY
     const o = { x: x.get(), y: y.get(), w: w.get(), h: h.get() }
@@ -168,7 +168,7 @@ export function Window({ win, title, children }: { win: Win; title: string; chil
       }
       if (dir.includes('n')) {
         const nh = Math.max(min.h, o.h - dy)
-        const ny = Math.max(30, o.y + o.h - nh)
+        const ny = Math.max(menubarH(), o.y + o.h - nh)
         h.set(o.y + o.h - ny)
         y.set(ny)
       }

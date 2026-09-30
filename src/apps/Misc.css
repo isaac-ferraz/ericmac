@@ -6,14 +6,14 @@
 }
 
 .notes__list {
-  width: 220px;
+  width: 13.75rem;
 }
 
 .notes__item {
   flex-direction: column;
   align-items: flex-start;
   gap: 0;
-  padding: 8px 10px;
+  padding: 0.5rem 0.625rem;
 }
 
 .notes__item strong {
@@ -38,7 +38,7 @@
 }
 
 .notes__toolbar {
-  padding-left: 14px;
+  padding-left: 0.875rem;
   border-bottom: 0;
 }
 
@@ -48,13 +48,13 @@
 }
 
 .note {
-  max-width: 620px;
+  max-width: 38.75rem;
   margin: 0 auto;
-  padding: 8px 40px 40px;
+  padding: 0.5rem 2.5rem 2.5rem;
 }
 
 .note__title {
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--fs-28);
@@ -63,24 +63,24 @@
 
 .note__steps {
   display: grid;
-  gap: 20px;
+  gap: 1.25rem;
 }
 
 .note__steps li {
   display: grid;
-  grid-template-columns: 34px 1fr;
-  gap: 12px;
+  grid-template-columns: 2.125rem 1fr;
+  gap: 0.75rem;
 }
 
 .note__num {
-  padding-top: 3px;
+  padding-top: 0.1875rem;
   font-family: var(--font-mono);
   font-size: var(--fs-12);
   color: var(--link);
 }
 
 .note__steps h2 {
-  margin-bottom: 4px;
+  margin-bottom: 0.25rem;
   font-size: var(--fs-15);
 }
 
@@ -92,7 +92,7 @@
 }
 
 .note__p + .note__p {
-  margin-top: 12px;
+  margin-top: 0.75rem;
 }
 
 .notes--mobile {
@@ -101,12 +101,12 @@
 }
 
 .notes--mobile .note {
-  padding: 8px 20px 32px;
+  padding: 0.5rem 1.25rem 2rem;
 }
 
 .notes--mobile .note + .note {
   border-top: 1px solid var(--hairline);
-  padding-top: 28px;
+  padding-top: 1.75rem;
 }
 
 /* ---------- Mensagens ---------- */
@@ -117,12 +117,12 @@
 }
 
 .msgs__list {
-  width: 236px;
+  width: 14.75rem;
 }
 
 .msgs__item {
-  gap: 10px;
-  padding: 8px;
+  gap: 0.625rem;
+  padding: 0.5rem;
 }
 
 .msgs__item span {
@@ -151,7 +151,7 @@
 }
 
 .msgs__toolbar {
-  padding-left: 14px;
+  padding-left: 0.875rem;
 }
 
 .msgs__scroll {
@@ -163,8 +163,8 @@
   flex: none;
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   font-size: var(--fs-12);
   font-weight: 700;
@@ -174,8 +174,8 @@
 
 .thread {
   display: grid;
-  gap: 14px;
-  padding: 24px;
+  gap: 0.875rem;
+  padding: 1.5rem;
 }
 
 .thread__meta {
@@ -187,21 +187,21 @@
 .thread__row {
   display: flex;
   align-items: flex-end;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .thread__author {
-  margin: 0 0 3px 12px;
+  margin: 0 0 0.1875rem 0.75rem;
   font-size: var(--fs-11);
   color: var(--text-3);
 }
 
 .bubble {
   position: relative;
-  max-width: 420px;
+  max-width: 26.25rem;
   margin: 0;
-  padding: 9px 14px;
-  border-radius: 18px;
+  padding: 0.5625rem 0.875rem;
+  border-radius: 1.125rem;
   font-size: var(--fs-15);
   line-height: 1.4;
   background: var(--surface-3);
@@ -210,17 +210,17 @@
 .bubble::before {
   content: '';
   position: absolute;
-  left: -5px;
+  left: -0.3125rem;
   bottom: 0;
-  width: 14px;
-  height: 14px;
+  width: 0.875rem;
+  height: 0.875rem;
   background: var(--surface-3);
-  border-bottom-right-radius: 14px 12px;
+  border-bottom-right-radius: 0.875rem 0.75rem;
   clip-path: polygon(0 100%, 100% 0, 100% 100%);
 }
 
 .thread__translation {
-  margin: 6px 0 0 12px;
+  margin: 0.375rem 0 0 0.75rem;
   font-size: var(--fs-12);
   color: var(--text-3);
 }
@@ -229,9 +229,9 @@
   justify-self: center;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  border-radius: 999px;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 100vmax;
   font-size: var(--fs-12);
   font-weight: 600;
   background: var(--surface-2);
@@ -263,7 +263,7 @@
 .trash__scroll {
   flex: 1;
   min-height: 0;
-  padding: 20px 24px 28px;
+  padding: 1.25rem 1.5rem 1.75rem;
 }
 
 .trash__title {
@@ -271,14 +271,14 @@
 }
 
 .trash__hint {
-  margin: 4px 0 18px;
+  margin: 0.25rem 0 1.125rem;
   color: var(--text-2);
 }
 
 .trash__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(10.625rem, 1fr));
+  gap: 0.875rem;
 }
 
 .trash__grid.is-shaking {
@@ -286,19 +286,19 @@
 }
 
 @keyframes trash-shake {
-  20% { transform: translateX(-6px) rotate(-0.5deg); }
-  40% { transform: translateX(5px) rotate(0.4deg); }
-  60% { transform: translateX(-3px); }
-  80% { transform: translateX(2px); }
+  20% { transform: translateX(-0.375rem) rotate(-0.5deg); }
+  40% { transform: translateX(0.3125rem) rotate(0.4deg); }
+  60% { transform: translateX(-0.1875rem); }
+  80% { transform: translateX(0.125rem); }
 }
 
 .trash__file {
   display: grid;
   justify-items: center;
-  gap: 3px;
+  gap: 0.1875rem;
   width: 100%;
-  padding: 10px;
-  border-radius: 12px;
+  padding: 0.625rem;
+  border-radius: 0.75rem;
   text-align: center;
 }
 
@@ -310,8 +310,8 @@
   display: block;
   width: 100%;
   aspect-ratio: 5 / 3;
-  margin-bottom: 6px;
-  border-radius: 6px;
+  margin-bottom: 0.375rem;
+  border-radius: 0.375rem;
   overflow: hidden;
   background: #fff;
   box-shadow: 0 0 0 0.5px var(--hairline-strong), 0 8px 16px -10px rgba(0, 0, 0, 0.5);
@@ -341,5 +341,5 @@
 }
 
 .trash--mobile .trash__scroll {
-  padding: 4px 20px 32px;
+  padding: 0.25rem 1.25rem 2rem;
 }

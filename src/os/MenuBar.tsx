@@ -5,6 +5,7 @@ import { useSettings } from './settings'
 import { openApp, openProject, openExternal, links } from './actions'
 import { useT, useLang } from '../i18n'
 import { projects } from '../data/projects'
+import { profile } from '../data/profile'
 import { windowTitle } from '../apps/registry'
 import { Mark } from '../brand/icons'
 import { ControlCenter } from './ControlCenter'
@@ -38,13 +39,13 @@ export function MenuBar() {
   const setCC = useUI((s) => s.setControlCenter)
 
   const winList = Object.values(wins).sort((a, b) => a.z - b.z)
-  const appName = top ? windowTitle(top, t) : 'Eric Mac'
+  const appName = top ? windowTitle(top, t) : profile.name
 
   const menus: MenuDef[] = [
     {
       id: 'mark',
       label: <Mark size={9} />,
-      ariaLabel: 'Eric Mac',
+      ariaLabel: profile.name,
       items: [
         { label: t('menu.aboutEric'), onSelect: () => openApp('about') },
         'sep',

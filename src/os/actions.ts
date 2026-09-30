@@ -29,7 +29,6 @@ export function vcardHref() {
     `FN:${profile.fullName}`,
     'N:Macintyre;Eric;;;',
     `TITLE:${profile.role.pt}`,
-    `ORG:${profile.company}`,
     `EMAIL;TYPE=INTERNET:${c.email}`,
     `TEL;TYPE=CELL:${c.phoneHref.replace('tel:', '')}`,
     `URL:${c.behance}`,
